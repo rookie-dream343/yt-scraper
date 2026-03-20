@@ -320,42 +320,34 @@ def burn_subtitles(video_file: Path, subtitle_file: Path,
         logger.error(f"字幕文件不存在: {subtitle_file}")
         return None
 
-    # 默认样式
-    if style is None:
-        style = {
-            'FontName': 'Microsoft YaHei,Arial',
-            'FontSize': 18,
-            'PrimaryColour': '&HFFFFFF',
-            'OutlineColour': '&H000000',
-            'Outline': 2,
-            'Alignment': 2,
-            'MarginV': 30,
-            'BorderStyle': 1,
-        }
-
-    # 构建样式字符串
-    style_str = ','.join(f"{k}={v}" for k, v in style.items())
-
     # 输出文件路径
     output_file = video_file.parent / f"{video_file.stem}_zh_cn{video_file.suffix}"
 
-    # Windows路径需要转义
-    subtitle_path = str(subtitle_file).replace('\\', '\\\\').replace(':', '\\:')
+    # 为了处理特殊字符，使用临时文件
+    import shutil
+    import tempfile
 
-    cmd = [
-        ffmpeg_path,
-        '-i', str(video_file),
-        '-vf', f"subtitles={subtitle_path}:force_style='{style_str}'",
-        '-c:a', 'copy',  # 音频不重新编码
-        '-y',
-        str(output_file)
-    ]
-
-    logger.info(f"开始压制字幕...")
-    logger.info(f"输出文件: {output_file}")
+    work_dir = video_file.parent
+    temp_video = work_dir / "temp_burn_video.mp4"
+    temp_subs = work_dir / "temp_burn_subs.srt"
 
     try:
-        # Windows上需要指定编码避免UnicodeDecodeError
+        # 复制到临时文件（避免特殊字符问题）
+        shutil.copy(video_file, temp_video)
+        shutil.copy(subtitle_file, temp_subs)
+
+        cmd = [
+            ffmpeg_path,
+            '-i', str(temp_video),
+            '-vf', f"subtitles={temp_subs.name}",
+            '-c:a', 'copy',
+            '-y',
+            str(output_file)
+        ]
+
+        logger.info(f"开始压制字幕...")
+        logger.info(f"输出文件: {output_file}")
+
         result = subprocess.run(
             cmd,
             capture_output=True,
@@ -374,6 +366,10 @@ def burn_subtitles(video_file: Path, subtitle_file: Path,
     except Exception as e:
         logger.error(f"压制失败: {e}")
         return None
+    finally:
+        # 清理临时文件
+        temp_video.unlink(missing_ok=True)
+        temp_subs.unlink(missing_ok=True)
 
 
 # ==================== 完整流程 ====================
