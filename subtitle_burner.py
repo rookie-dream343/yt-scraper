@@ -355,7 +355,14 @@ def burn_subtitles(video_file: Path, subtitle_file: Path,
     logger.info(f"输出文件: {output_file}")
 
     try:
-        result = subprocess.run(cmd, capture_output=True, text=True)
+        # Windows上需要指定编码避免UnicodeDecodeError
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='ignore'
+        )
 
         if result.returncode == 0:
             logger.info(f"硬字幕压制完成: {output_file}")
