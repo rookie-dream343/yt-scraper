@@ -121,10 +121,12 @@ def get_available_subtitles(url: str, cookies_file: str = None) -> Dict:
             'no_warnings': True,
         }
 
-        # 添加cookies支持
-        if cookies_file and Path(cookies_file).exists():
-            ydl_opts['cookiefile'] = cookies_file
-            logger.info(f"使用cookies文件: {cookies_file}")
+        # 添加cookies支持 - 使用绝对路径
+        if cookies_file:
+            cookies_path = Path(cookies_file)
+            if cookies_path.exists():
+                ydl_opts['cookiefile'] = str(cookies_path.absolute())
+                logger.info(f"使用cookies文件: {cookies_path.absolute()}")
 
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=False)
@@ -187,10 +189,12 @@ def extract_subtitles(url: str, output_dir: Path, languages: List[str] = None,
         'quiet': False,
     }
 
-    # 添加cookies支持
-    if cookies_file and Path(cookies_file).exists():
-        ydl_opts['cookiefile'] = cookies_file
-        logger.info(f"使用cookies文件: {cookies_file}")
+    # 添加cookies支持 - 使用绝对路径
+    if cookies_file:
+        cookies_path = Path(cookies_file)
+        if cookies_path.exists():
+            ydl_opts['cookiefile'] = str(cookies_path.absolute())
+            logger.info(f"使用cookies文件: {cookies_path.absolute()}")
 
     logger.info(f"开始下载字幕，语言: {languages}")
 
