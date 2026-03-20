@@ -105,14 +105,65 @@ def transcribe_with_whisper(audio_path: str, model_size: str = 'base') -> List[D
     Returns:
         转录结果列表，每项包含 {start, end, text}
     """
+    import os
+
+    # 检查是否有可用的代理
+    proxy = os.environ.get('HTTP_PROXY') or os.environ.get('HTTPS_PROXY')
+
     logger.info(f"加载Whisper模型 ({model_size})...")
 
-    try:
-        model = whisper.load_model(model_size)
-    except Exception as e:
-        logger.error(f"模型加载失败: {e}")
-        logger.info("尝试使用tiny模型...")
-        model = whisper.load_model('tiny')
+    # 尝试多种方式加载模型
+    model = None
+    load_attempts = []
+
+    # 方式1: 直接加载（使用缓存）
+    load_attempts.append(('直接加载', lambda: whisper.load_model(model_size)))
+
+    # 方式2: 使用HuggingFace镜像
+    if not proxy:
+        os.environ['HF_ENDPOINT'] = 'https://hf-mirror.com'
+        load_attempts.append(('使用HF镜像', lambda: whisper.load_model(model_size)))
+
+    # 方式3: 使用代理
+    if proxy:
+        load_attempts.insert(0, (f'使用代理 {proxy}', lambda: whisper.load_model(model_size)))
+
+    last_error = None
+    for desc, attempt_func in load_attempts:
+        try:
+            logger.info(f"尝试{desc}...")
+            model = attempt_func()
+            break
+        except Exception as e:
+            last_error = e
+            logger.warning(f"{desc}失败: {e}")
+            # 清理环境变量
+            if 'HF_ENDPOINT' in os.environ:
+                del os.environ['HF_ENDPOINT']
+            continue
+
+    if model is None:
+        logger.error("=" * 50)
+        logger.error("Whisper模型加载失败！")
+        logger.error("=" * 50)
+        logger.error("可能的原因:")
+        logger.error("1. 网络连接问题（SSL错误）")
+        logger.error("2. 需要代理访问HuggingFace")
+        logger.error("3. 防火墙阻止了连接")
+        logger.error("")
+        logger.error("解决方案:")
+        logger.error("A. 配置代理后重试")
+        logger.error("   set HTTPS_PROXY=http://127.0.0.1:7890")
+        logger.error("")
+        logger.error("B. 手动下载模型文件:")
+        logger.error("   1. 访问 https://hf-mirror.com/gpt-openai/whisper-tiny")
+        logger.error("   2. 下载 pytorch_model.bin")
+        logger.error("   3. 保存到: C:\\Users\\Zamateur\\.cache\\whisper\\tiny.pt")
+        logger.error("")
+        logger.error("C. 暂时禁用ASR对齐，使用改进的合并算法")
+        logger.error("   设置 config.py: ENABLE_ASR_ALIGNMENT = False")
+        logger.error("=" * 50)
+        raise Exception("无法加载Whisper模型")
 
     logger.info(f"开始转录音频...")
 
