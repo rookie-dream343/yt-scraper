@@ -447,10 +447,14 @@ def burn_subtitles(video_file: Path, subtitle_file: Path,
         shutil.copy(video_file, temp_video)
         shutil.copy(subtitle_file, temp_subs)
 
+        # 在工作目录中运行FFmpeg，使用相对路径
+        # Windows路径需要特殊处理用于FFmpeg滤镜
+        subs_path_for_ffmpeg = str(temp_subs).replace('\\', '/').replace(':', '\\:')
+
         cmd = [
             ffmpeg_path,
             '-i', str(temp_video),
-            '-vf', f"subtitles={temp_subs.name}",
+            '-vf', f"subtitles={subs_path_for_ffmpeg}",
             '-c:a', 'copy',
             '-y',
             str(output_file)
