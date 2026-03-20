@@ -3,20 +3,33 @@
 """
 YouTube视频下载工具
 需要: cookies.txt, deno
+功能: 视频下载 + 字幕翻译 + 硬字幕压制
 """
 
 import os
 import sys
 import subprocess
 from pathlib import Path
+from typing import Optional
 
-# Deno路径
-DENO_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\DenoLand.Deno_Microsoft.Winget.Source_8wekyb3d8bbwe\deno.exe"
-# Ffmpeg路径
-FFMPEG_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin\ffmpeg.exe"
-COOKIES_FILE = "cookies.txt"
+try:
+    from config import DEEPL_API_KEY, FFMPEG_PATH, DENO_PATH, COOKIES_FILE, SUBTITLE_STYLE
+except ImportError:
+    print("警告: 无法导入config.py，使用默认配置")
+    DEEPL_API_KEY = ""
+    DENO_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\DenoLand.Deno_Microsoft.Winget.Source_8wekyb3d8bbwe\deno.exe"
+    FFMPEG_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin\ffmpeg.exe"
+    COOKIES_FILE = "cookies.txt"
+    SUBTITLE_STYLE = {}
 
-def download_video(url: str, output_dir: str = './downloads', quality: str = 'best'):
+def get_latest_video(output_dir: Path) -> Optional[Path]:
+    """获取下载目录中最新修改的视频文件"""
+    video_files = list(output_dir.glob("*.mp4")) + list(output_dir.glob("*.mkv")) + list(output_dir.glob("*.webm"))
+    if not video_files:
+        return None
+    return max(video_files, key=lambda f: f.stat().st_mtime)
+
+def download_video(url: str, output_dir: str = './downloads', quality: str = 'best') -> Optional[Path]:
     """下载视频"""
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
@@ -74,15 +87,58 @@ def download_video(url: str, output_dir: str = './downloads', quality: str = 'be
 
     try:
         result = subprocess.run(cmd, check=False)
-        return result.returncode == 0
+        if result.returncode == 0:
+            # 返回下载的视频文件路径
+            video_file = get_latest_video(output_path)
+            if video_file:
+                print(f"\n视频已保存: {video_file.name}")
+                return video_file
+        return None
     except KeyboardInterrupt:
         print("\n用户取消")
-        return False
+        return None
+
+def process_subtitles(url: str, video_file: Path, output_dir: Path):
+    """处理字幕：提取、翻译、压制"""
+    try:
+        from subtitle_burner import process_video_with_subtitles
+    except ImportError:
+        print("\n✗ 无法导入subtitle_burner模块")
+        return None
+
+    if not DEEPL_API_KEY:
+        print("\n✗ 请先在config.py中配置DEEPL_API_KEY")
+        return None
+
+    print("\n" + "=" * 50)
+    print("开始处理字幕...")
+    print("=" * 50)
+
+    srt_file, final_video = process_video_with_subtitles(
+        url, video_file, DEEPL_API_KEY, FFMPEG_PATH, output_dir
+    )
+
+    if final_video:
+        print(f"\n✓ 字幕处理完成!")
+        print(f"  中英对照字幕: {srt_file}")
+        print(f"  硬字幕视频: {final_video}")
+        return final_video
+    else:
+        print(f"\n⚠ 字幕处理部分完成")
+        print(f"  字幕文件: {srt_file}")
+        return None
 
 def main():
     print("=" * 60)
-    print("           YouTube 视频下载器")
+    print("       YouTube 视频下载器 + 字幕翻译")
     print("=" * 60)
+
+    # 检查API配置
+    if not DEEPL_API_KEY:
+        print("\n⚠ 警告: 未配置DEEPL_API_KEY，字幕翻译功能不可用")
+        print("  请在config.py中填入您的DeepL API密钥")
+    else:
+        print(f"\n✓ DeepL API已配置")
 
     print("\n提示: 确保 cookies.txt 文件在当前目录")
 
@@ -109,13 +165,28 @@ def main():
         qualities = {'0': 'best', '1': '4k', '2': '1440p', '3': '1080p', '4': '720p', '5': '480p'}
         quality = qualities.get(choice, 'best')
 
-        # 下载
-        success = download_video(url, './downloads', quality)
+        # 询问是否处理字幕
+        print("\n是否处理字幕?")
+        print("  0 - 不处理字幕")
+        print("  1 - 下载并翻译字幕，硬字幕压制")
 
-        if success:
-            print("\n✓ 下载完成!")
-        else:
+        subtitle_choice = input("选择 (直接回车=不处理): ").strip()
+
+        output_dir = Path('./downloads')
+        # 下载视频
+        video_file = download_video(url, str(output_dir), quality)
+
+        if not video_file:
             print("\n✗ 下载失败")
+            continue
+
+        print("\n✓ 视频下载完成!")
+
+        # 处理字幕
+        if subtitle_choice == '1':
+            process_subtitles(url, video_file, output_dir)
+        else:
+            print("\n跳过字幕处理")
 
 if __name__ == "__main__":
     main()
