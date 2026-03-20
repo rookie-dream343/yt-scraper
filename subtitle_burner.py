@@ -31,10 +31,12 @@ except ImportError:
 
 # 导入配置
 try:
-    from config import PROXY_URL, NETWORK_TIMEOUT
+    from config import PROXY_URL, NETWORK_TIMEOUT, SUBTITLE_GAP, MIN_SUBTITLE_DURATION
 except ImportError:
     PROXY_URL = ""
     NETWORK_TIMEOUT = 60
+    SUBTITLE_GAP = 0.2
+    MIN_SUBTITLE_DURATION = 1.0
 
 # 配置日志
 logging.basicConfig(
@@ -100,13 +102,122 @@ def parse_srt(srt_file: Path) -> List[SubtitleEntry]:
     return entries
 
 
-def write_bilingual_srt(entries: List[Dict], output_file: Path):
+def time_to_seconds(time_str: str) -> float:
+    """将SRT时间格式转换为秒
+
+    Args:
+        time_str: SRT时间格式，如 "00:01:23,456"
+
+    Returns:
+        秒数（浮点数）
+    """
+    # 处理逗号分隔的毫秒
+    time_str = time_str.replace(',', '.')
+    parts = time_str.split(':')
+    hours = int(parts[0])
+    minutes = int(parts[1])
+    seconds = float(parts[2])
+    return hours * 3600 + minutes * 60 + seconds
+
+
+def seconds_to_time(seconds: float) -> str:
+    """将秒转换为SRT时间格式
+
+    Args:
+        seconds: 秒数（浮点数）
+
+    Returns:
+        SRT时间格式，如 "00:01:23,456"
+    """
+    hours = int(seconds // 3600)
+    seconds %= 3600
+    minutes = int(seconds // 60)
+    seconds %= 60
+    milliseconds = int((seconds - int(seconds)) * 1000)
+    seconds = int(seconds)
+    return f"{hours:02d}:{minutes:02d}:{seconds:02d},{milliseconds:03d}"
+
+
+def adjust_subtitle_timing(entries: List[Dict], gap: float = SUBTITLE_GAP,
+                          min_duration: float = MIN_SUBTITLE_DURATION) -> List[Dict]:
+    """调整字幕时间轴，避免重叠
+
+    策略：
+    1. 检测字幕之间的时间重叠
+    2. 如果重叠，在保证连贯性的前提下调整时间轴
+    3. 优先缩短前一个字幕的结束时间，而不是切断后一个字幕
+
+    Args:
+        entries: 字幕条目列表，每个包含 start, end, text_en, text_zh
+        gap: 字幕之间的最小间隔（秒）
+        min_duration: 字幕的最小持续时间（秒）
+
+    Returns:
+        调整后的字幕条目列表
+    """
+    if not entries:
+        return entries
+
+    # 转换为秒以便计算
+    for entry in entries:
+        entry['start_sec'] = time_to_seconds(entry['start'])
+        entry['end_sec'] = time_to_seconds(entry['end'])
+        entry['duration'] = entry['end_sec'] - entry['start_sec']
+
+    adjusted = []
+    prev_end = 0
+
+    for i, entry in enumerate(entries):
+        start = entry['start_sec']
+        end = entry['end_sec']
+        duration = entry['duration']
+
+        # 检测是否与前一个字幕重叠
+        if start < prev_end + gap:
+            # 有重叠，需要调整
+            overlap = prev_end + gap - start
+
+            # 策略：优先缩短当前字幕的开始时间（向后移）
+            # 如果当前字幕足够长，可以向后移
+            if duration - overlap >= min_duration:
+                start = prev_end + gap
+            # 否则，缩短前一个字幕的结束时间
+            elif adjusted and (adjusted[-1]['end_sec'] - overlap) >= adjusted[-1]['start_sec'] + min_duration:
+                adjusted[-1]['end_sec'] = start - gap
+                prev_end = adjusted[-1]['end_sec']
+            # 如果都不行，稍微缩短当前字幕的持续时间
+            else:
+                start = prev_end + gap
+
+        # 确保最小持续时间
+        if end - start < min_duration:
+            end = start + min_duration
+
+        # 更新时间戳
+        entry['start'] = seconds_to_time(start)
+        entry['end'] = seconds_to_time(end)
+        entry['start_sec'] = start
+        entry['end_sec'] = end
+
+        adjusted.append(entry)
+        prev_end = end
+
+    logger.info(f"调整了 {len(entries)} 条字幕的时间轴")
+    return adjusted
+
+
+def write_bilingual_srt(entries: List[Dict], output_file: Path, adjust_timing: bool = True):
     """写入中英对照SRT文件
 
     Args:
         entries: 字幕条目列表，每个包含 text_en 和 text_zh
         output_file: 输出文件路径
+        adjust_timing: 是否调整时间轴避免重叠
     """
+    # 应用时间轴调整
+    if adjust_timing:
+        entries = adjust_subtitle_timing(entries)
+
     with open(output_file, 'w', encoding='utf-8') as f:
         for i, entry in enumerate(entries, 1):
             f.write(f"{i}\n")

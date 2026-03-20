@@ -41,14 +41,20 @@ COOKIES_FROM_BROWSER = ""  # 留空使用cookies.txt，手动导出更稳定
 # 硬字幕样式
 SUBTITLE_STYLE = {
     'FontName': 'Microsoft YaHei,Arial',  # 字体（中英文）
-    'FontSize': 18,                       # 字体大小
+    'FontSize': 14,                       # 字体大小（调小）
     'PrimaryColour': '&HFFFFFF',          # 字体颜色（白色）
     'OutlineColour': '&H000000',          # 描边颜色（黑色）
-    'Outline': 2,                         # 描边宽度
+    'Outline': 1,                         # 描边宽度（调细）
     'Alignment': 2,                       # 对齐方式：2=底部居中
     'MarginV': 30,                        # 底部边距
     'BorderStyle': 1,                     # 边框样式：1=描边
 }
+
+# ==================== 字幕时间轴配置 ====================
+# 字幕间隙（秒）：前一个字幕结束和后一个字幕开始之间的最小间隔
+SUBTITLE_GAP = 0.2  # 避免字幕重叠
+# 最小字幕持续时间（秒）
+MIN_SUBTITLE_DURATION = 1.0
 
 # ==================== 字幕语言配置 ====================
 # 优先尝试的字幕语言
