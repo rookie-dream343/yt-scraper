@@ -16,6 +16,8 @@ def download_with_cookies(url: str, cookie_file: str, output_dir: str = './downl
         '-f', 'bestvideo+bestaudio/best',
         '-o', str(Path(output_dir) / '%(title)s.%(ext)s'),
         '--merge-output-format', 'mp4',
+        '--audio-format', 'aac',
+        '--postprocessor-args', 'ffmpeg:-acodec aac -strict experimental',
         url
     ]
 

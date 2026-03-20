@@ -63,6 +63,8 @@ def download_video(url: str, output_dir: str = './downloads', quality: str = 'be
         '-f', format_str,
         '-o', str(output_path / '%(title)s.%(ext)s'),
         '--merge-output-format', 'mp4',
+        '--audio-format', 'aac',
+        '--postprocessor-args', 'ffmpeg:-acodec aac -strict experimental',
         url
     ]
 
