@@ -33,63 +33,149 @@ def seconds_to_srt_time(seconds):
     seconds = int(seconds)
     return f"{hours:02d}:{minutes:02d}:{seconds:02d},{milliseconds:03d}"
 
+def should_merge_sentences(prev_text, curr_text, time_gap):
+    """判断两句字幕是否应该合并"""
+    prev_text = prev_text.strip()
+    curr_text = curr_text.strip()
+
+    # 检查前一句是否以结束标点结尾
+    sentence_endings = ['.', '!', '?', '。', '！', '？']
+    prev_has_ending = any(prev_text.endswith(c) for c in sentence_endings)
+
+    # 检查当前句是否以大写字母开头
+    curr_starts_upper = curr_text and curr_text[0].isupper()
+
+    # 检查是否是特殊标记
+    special_markers = ['[', '((', '♪', '(music)', '(laughter)']
+    is_special = any(marker in curr_text.lower() for marker in special_markers)
+
+    # 判断是否合并
+    should_merge = (
+        not prev_has_ending and
+        not curr_starts_upper and
+        time_gap < 1.0 and
+        not is_special and
+        len(prev_text) + len(curr_text) < 80
+    )
+
+    return should_merge
+
 def adjust_subtitle_timing(srt_file, output_file, gap=0.2):
-    """调整字幕时间轴，避免重叠"""
+    """调整字幕时间轴：先合并连贯句子，再避免重叠"""
     with open(srt_file, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # 解析字幕
-    pattern = r'(\d+)\n(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})\n(.+?)(?=\n\n|\n*$)'
-    matches = re.findall(pattern, content, re.DOTALL)
-
+    # 解析字幕 - 分别处理英文字幕（奇数行）和中文字幕（偶数行）
+    lines = content.split('\n')
     entries = []
-    for match in matches:
-        idx, start, end, text = match
+    i = 0
+
+    while i < len(lines):
+        # 跳过空行
+        if not lines[i].strip():
+            i += 1
+            continue
+
+        # 序号行
+        if not lines[i].strip().isdigit():
+            i += 1
+            continue
+
+        index = int(lines[i].strip())
+        i += 1
+
+        # 时间轴行
+        if i >= len(lines):
+            break
+        time_line = lines[i].strip()
+        time_match = re.search(r'(\d{2}:\d{2}:\d{2},\d{3})\s*-->\s*(\d{2}:\d{2}:\d{2},\d{3})', time_line)
+        if not time_match:
+            i += 1
+            continue
+        start, end = time_match.groups()
         start_sec = parse_time_to_seconds(start)
         end_sec = parse_time_to_seconds(end)
+        i += 1
+
+        # 英文文本
+        if i >= len(lines):
+            break
+        text_en = lines[i].strip() if i < len(lines) else ''
+        i += 1
+
+        # 中文文本
+        if i >= len(lines):
+            break
+        text_zh = lines[i].strip() if i < len(lines) else ''
+        i += 1
+
         entries.append({
-            'index': int(idx),
+            'index': index,
             'start': start,
             'end': end,
             'start_sec': start_sec,
             'end_sec': end_sec,
-            'text': text.strip()
+            'text_en': text_en,
+            'text_zh': text_zh
         })
 
-    # 调整时间轴
+    # 第一步：合并连贯的字幕
+    merged = []
+    j = 0
+
+    while j < len(entries):
+        current = entries[j].copy()
+
+        # 尝试与后续字幕合并
+        while j + 1 < len(entries):
+            next_entry = entries[j + 1]
+            time_gap = next_entry['start_sec'] - current['end_sec']
+
+            if should_merge_sentences(current['text_en'], next_entry['text_en'], time_gap):
+                current['text_en'] += ' ' + next_entry['text_en']
+                current['text_zh'] += ' ' + next_entry['text_zh']
+                current['end_sec'] = next_entry['end_sec']
+                j += 1
+            else:
+                break
+
+        merged.append(current)
+        j += 1
+
+    print(f"合并字幕: {len(entries)} -> {len(merged)} 条")
+
+    # 第二步：调整时间轴避免重叠
     adjusted = []
     prev_end = 0
 
-    for entry in entries:
+    for entry in merged:
         start = entry['start_sec']
         end = entry['end_sec']
 
+        # 确保最小持续时间
+        if end - start < 1.0:
+            end = start + 1.0
+
+        # 检测重叠
         if start < prev_end + gap:
-            overlap = prev_end + gap - start
-            # 缩短当前字幕的持续时间（如果足够长）
-            if (end - start - overlap) >= 1.0:
-                start = prev_end + gap
-            else:
-                start = prev_end + gap
-                if end - start < 1.0:
-                    end = start + 1.0
+            start = prev_end + gap
+            end = max(end, start + 1.0)
 
         entry['start'] = seconds_to_srt_time(start)
         entry['end'] = seconds_to_srt_time(end)
-        entry['start_sec'] = start
-        entry['end_sec'] = end
 
         adjusted.append(entry)
         prev_end = end
 
     # 写入文件
     with open(output_file, 'w', encoding='utf-8') as f:
-        for entry in adjusted:
-            f.write(f"{entry['index']}\n")
+        for idx, entry in enumerate(adjusted, 1):
+            f.write(f"{idx}\n")
             f.write(f"{entry['start']} --> {entry['end']}\n")
-            f.write(f"{entry['text']}\n\n")
+            f.write(f"{entry['text_en']}\n")
+            f.write(f"{entry['text_zh']}\n\n")
 
-    print(f"调整了 {len(adjusted)} 条字幕的时间轴")
+    print(f"调整后: {len(adjusted)} 条字幕")
     return output_file
 
 def burn_subtitles(video_file, subtitle_file, output_file):

@@ -138,14 +138,57 @@ def seconds_to_time(seconds: float) -> str:
     return f"{hours:02d}:{minutes:02d}:{seconds:02d},{milliseconds:03d}"
 
 
+def should_merge_sentences(prev_entry: Dict, curr_entry: Dict) -> bool:
+    """判断两个字幕是否应该合并为一条
+
+    合并条件：
+    1. 前一句不是完整句子（没有结束标点）
+    2. 当前句不是大写字母开头（可能是句子延续）
+    3. 两句之间时间间隔很短（< 1秒）
+
+    Args:
+        prev_entry: 前一个字幕条目
+        curr_entry: 当前字幕条目
+
+    Returns:
+        是否应该合并
+    """
+    prev_text = prev_entry['text_en'].strip()
+    curr_text = curr_entry['text_en'].strip()
+
+    # 检查前一句是否以结束标点结尾
+    sentence_endings = ['.', '!', '?', '。', '！', '？']
+    prev_has_ending = any(prev_text.endswith(c) for c in sentence_endings)
+
+    # 检查当前句是否以大写字母开头（可能是新句子）
+    curr_starts_upper = curr_text and curr_text[0].isupper()
+
+    # 检查是否是特殊标记（如音乐、笑声等）
+    special_markers = ['[', '(', '♪', '#', '(music)', '(laughter)']
+    is_special = any(marker in curr_text.lower() for marker in special_markers)
+
+    # 时间间隔
+    time_gap = curr_entry['start_sec'] - prev_entry['end_sec']
+
+    # 判断：如果前一句没有结束，且当前句不是大写开头，且时间间隔短，则合并
+    should_merge = (
+        not prev_has_ending and
+        not curr_starts_upper and
+        time_gap < 1.0 and
+        not is_special and
+        len(prev_text) + len(curr_text) < 80  # 合并后不会太长
+    )
+
+    return should_merge
+
+
 def adjust_subtitle_timing(entries: List[Dict], gap: float = SUBTITLE_GAP,
                           min_duration: float = MIN_SUBTITLE_DURATION) -> List[Dict]:
     """调整字幕时间轴，避免重叠
 
     策略：
-    1. 检测字幕之间的时间重叠
-    2. 如果重叠，在保证连贯性的前提下调整时间轴
-    3. 优先缩短前一个字幕的结束时间，而不是切断后一个字幕
+    1. 首先合并属于同一句话的零碎字幕
+    2. 然后调整时间轴避免重叠
 
     Args:
         entries: 字幕条目列表，每个包含 start, end, text_en, text_zh
@@ -158,40 +201,55 @@ def adjust_subtitle_timing(entries: List[Dict], gap: float = SUBTITLE_GAP,
     if not entries:
         return entries
 
-    # 转换为秒以便计算
+    # 转换为秒
     for entry in entries:
         entry['start_sec'] = time_to_seconds(entry['start'])
         entry['end_sec'] = time_to_seconds(entry['end'])
-        entry['duration'] = entry['end_sec'] - entry['start_sec']
 
+    # 第一步：合并连贯的字幕
+    merged = []
+    i = 0
+
+    while i < len(entries):
+        current = entries[i].copy()
+
+        # 尝试与后续字幕合并
+        while i + 1 < len(entries):
+            next_entry = entries[i + 1]
+
+            if should_merge_sentences(current, next_entry):
+                # 合并
+                current['text_en'] += ' ' + next_entry['text_en']
+                current['text_zh'] += ' ' + next_entry['text_zh']
+                # 延长结束时间
+                current['end_sec'] = next_entry['end_sec']
+                i += 1
+            else:
+                break
+
+        merged.append(current)
+        i += 1
+
+    logger.info(f"合并字幕: {len(entries)} -> {len(merged)} 条")
+
+    # 第二步：调整时间轴避免重叠
     adjusted = []
     prev_end = 0
 
-    for i, entry in enumerate(entries):
+    for entry in merged:
         start = entry['start_sec']
         end = entry['end_sec']
-        duration = entry['duration']
-
-        # 检测是否与前一个字幕重叠
-        if start < prev_end + gap:
-            # 有重叠，需要调整
-            overlap = prev_end + gap - start
-
-            # 策略：优先缩短当前字幕的开始时间（向后移）
-            # 如果当前字幕足够长，可以向后移
-            if duration - overlap >= min_duration:
-                start = prev_end + gap
-            # 否则，缩短前一个字幕的结束时间
-            elif adjusted and (adjusted[-1]['end_sec'] - overlap) >= adjusted[-1]['start_sec'] + min_duration:
-                adjusted[-1]['end_sec'] = start - gap
-                prev_end = adjusted[-1]['end_sec']
-            # 如果都不行，稍微缩短当前字幕的持续时间
-            else:
-                start = prev_end + gap
+        duration = end - start
 
         # 确保最小持续时间
-        if end - start < min_duration:
+        if duration < min_duration:
             end = start + min_duration
+
+        # 检测重叠
+        if start < prev_end + gap:
+            # 调整当前字幕的开始时间
+            start = prev_end + gap
+            end = max(end, start + min_duration)
 
         # 更新时间戳
         entry['start'] = seconds_to_time(start)
@@ -202,7 +260,7 @@ def adjust_subtitle_timing(entries: List[Dict], gap: float = SUBTITLE_GAP,
         adjusted.append(entry)
         prev_end = end
 
-    logger.info(f"调整了 {len(entries)} 条字幕的时间轴")
+    logger.info(f"调整后: {len(adjusted)} 条字幕")
     return adjusted
 
 
