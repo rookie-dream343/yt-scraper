@@ -29,6 +29,13 @@ except ImportError:
     print("请安装 deepl: pip install deepl")
     sys.exit(1)
 
+# 导入配置
+try:
+    from config import PROXY_URL, NETWORK_TIMEOUT
+except ImportError:
+    PROXY_URL = ""
+    NETWORK_TIMEOUT = 60
+
 # 配置日志
 logging.basicConfig(
     level=logging.INFO,
@@ -113,13 +120,19 @@ def write_bilingual_srt(entries: List[Dict], output_file: Path):
 
 # ==================== 字幕提取 ====================
 
-def get_available_subtitles(url: str, cookies_file: str = None) -> Dict:
+def get_available_subtitles(url: str, cookies_file: str = None, proxy: str = None) -> Dict:
     """获取视频可用的字幕列表"""
     try:
         ydl_opts = {
             'quiet': True,
             'no_warnings': True,
+            'socket_timeout': NETWORK_TIMEOUT,
         }
+
+        # 添加代理支持
+        if proxy:
+            ydl_opts['proxy'] = proxy
+            logger.info(f"使用代理: {proxy}")
 
         # 添加cookies支持 - 使用绝对路径
         if cookies_file:
@@ -149,7 +162,7 @@ def get_available_subtitles(url: str, cookies_file: str = None) -> Dict:
 
 
 def extract_subtitles(url: str, output_dir: Path, languages: List[str] = None,
-                     cookies_file: str = None) -> Optional[Path]:
+                     cookies_file: str = None, proxy: str = None) -> Optional[Path]:
     """从YouTube视频提取字幕
 
     Args:
@@ -157,6 +170,7 @@ def extract_subtitles(url: str, output_dir: Path, languages: List[str] = None,
         output_dir: 输出目录
         languages: 要下载的字幕语言列表
         cookies_file: cookies文件路径
+        proxy: 代理地址
 
     Returns:
         下载的字幕文件路径，失败返回None
@@ -167,7 +181,7 @@ def extract_subtitles(url: str, output_dir: Path, languages: List[str] = None,
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # 获取视频信息
-    subtitle_info = get_available_subtitles(url, cookies_file)
+    subtitle_info = get_available_subtitles(url, cookies_file, proxy)
     if not subtitle_info:
         logger.error("无法获取字幕信息")
         return None
@@ -187,7 +201,13 @@ def extract_subtitles(url: str, output_dir: Path, languages: List[str] = None,
         'ignoreerrors': True,
         'subtitlesformat': 'srt',
         'quiet': False,
+        'socket_timeout': NETWORK_TIMEOUT,
     }
+
+    # 添加代理支持
+    if proxy:
+        ydl_opts['proxy'] = proxy
+        logger.info(f"使用代理: {proxy}")
 
     # 添加cookies支持 - 使用绝对路径
     if cookies_file:
@@ -354,7 +374,8 @@ def burn_subtitles(video_file: Path, subtitle_file: Path,
 def process_video_with_subtitles(url: str, video_file: Path,
                                  api_key: str, ffmpeg_path: str,
                                  output_dir: Path = None,
-                                 cookies_file: str = None) -> Tuple[Optional[Path], Optional[Path]]:
+                                 cookies_file: str = None,
+                                 proxy: str = None) -> Tuple[Optional[Path], Optional[Path]]:
     """完整流程：下载字幕、翻译、压制
 
     Args:
@@ -364,6 +385,7 @@ def process_video_with_subtitles(url: str, video_file: Path,
         ffmpeg_path: FFmpeg路径
         output_dir: 字幕输出目录
         cookies_file: cookies文件路径
+        proxy: 代理地址
 
     Returns:
         (字幕文件路径, 硬字幕视频路径)
@@ -374,7 +396,7 @@ def process_video_with_subtitles(url: str, video_file: Path,
     # 1. 提取字幕
     logger.info("=" * 50)
     logger.info("步骤 1/4: 提取字幕")
-    srt_file = extract_subtitles(url, output_dir, cookies_file=cookies_file)
+    srt_file = extract_subtitles(url, output_dir, cookies_file=cookies_file, proxy=proxy)
 
     if not srt_file:
         logger.error("字幕提取失败")

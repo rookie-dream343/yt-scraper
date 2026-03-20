@@ -13,14 +13,17 @@ from pathlib import Path
 from typing import Optional
 
 try:
-    from config import DEEPL_API_KEY, FFMPEG_PATH, DENO_PATH, COOKIES_FILE, SUBTITLE_STYLE, COOKIES_FROM_BROWSER
+    from config import (DEEPL_API_KEY, FFMPEG_PATH, DENO_PATH, COOKIES_FILE,
+                        SUBTITLE_STYLE, COOKIES_FROM_BROWSER, PROXY_URL, NETWORK_TIMEOUT)
 except ImportError:
     print("警告: 无法导入config.py，使用默认配置")
     DEEPL_API_KEY = ""
     DENO_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\DenoLand.Deno_Microsoft.Winget.Source_8wekyb3d8bbwe\deno.exe"
     FFMPEG_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin\ffmpeg.exe"
     COOKIES_FILE = "cookies.txt"
-    COOKIES_FROM_BROWSER = "chrome"
+    COOKIES_FROM_BROWSER = ""
+    PROXY_URL = ""
+    NETWORK_TIMEOUT = 60
     SUBTITLE_STYLE = {}
 
 def get_latest_video(output_dir: Path) -> Optional[Path]:
@@ -62,6 +65,15 @@ def download_video(url: str, output_dir: str = './downloads', quality: str = 'be
     else:
         print(f"警告: 未找到 ffmpeg，视频音频可能无法合并")
 
+    # 代理设置
+    proxy_arg = []
+    if PROXY_URL:
+        proxy_arg = ['--proxy', PROXY_URL]
+        print(f"使用代理: {PROXY_URL}")
+
+    # 超时设置
+    timeout_arg = ['--socket-timeout', str(NETWORK_TIMEOUT)]
+
     # 格式选择
     formats = {
         '4k': 'bestvideo[height<=2160]+bestaudio/best',
@@ -79,6 +91,8 @@ def download_video(url: str, output_dir: str = './downloads', quality: str = 'be
         *cookies_arg,
         *deno_arg,
         *ffmpeg_arg,
+        *proxy_arg,
+        *timeout_arg,
         '-f', format_str,
         '-o', str(output_path / '%(title)s.%(ext)s'),
         '--merge-output-format', 'mp4',
@@ -126,8 +140,11 @@ def process_subtitles(url: str, video_file: Path, output_dir: Path):
         cookies_file = COOKIES_FILE
         print(f"使用cookies: {COOKIES_FILE}")
 
+    # 代理设置
+    proxy = PROXY_URL if PROXY_URL else None
+
     srt_file, final_video = process_video_with_subtitles(
-        url, video_file, DEEPL_API_KEY, FFMPEG_PATH, output_dir, cookies_file
+        url, video_file, DEEPL_API_KEY, FFMPEG_PATH, output_dir, cookies_file, proxy
     )
 
     if final_video:

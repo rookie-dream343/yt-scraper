@@ -23,6 +23,15 @@ DENO_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\DenoLand
 # Cookies文件路径
 COOKIES_FILE = "cookies.txt"
 
+# 网络代理设置（如果需要）
+# 留空则不使用代理
+# HTTP代理示例: "http://127.0.0.1:7890"
+# SOCKS5代理示例: "socks5://127.0.0.1:7890"
+PROXY_URL = ""  # 请填入您的代理地址（如果需要）
+
+# 网络超时设置（秒）
+NETWORK_TIMEOUT = 60
+
 # 从浏览器自动获取cookies
 # 支持的浏览器: chrome, edge, firefox, opera, brave, vivaldi
 # 设为 None 或空字符串 则使用cookies.txt文件
