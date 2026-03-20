@@ -76,3 +76,11 @@ SUBTITLE_DIR = Path('./subtitles')
 # 英文字幕：%(title)s.en.srt
 # 中英对照字幕：%(title)s.zh_cn.srt
 # 硬字幕视频：%(title)s_zh_cn.%(ext)s
+
+# ==================== ASR自动对齐配置 ====================
+# 是否启用ASR自动对齐字幕时间轴
+ENABLE_ASR_ALIGNMENT = True
+# Whisper模型大小：tiny(最快) < base < small < medium < large(最准)
+WHISPER_MODEL_SIZE = "base"  # 推荐base，平衡速度和准确度
+# 最小匹配相似度阈值（0-1）
+ASR_MIN_SIMILARITY = 0.5

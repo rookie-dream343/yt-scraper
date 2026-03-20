@@ -32,13 +32,15 @@ except ImportError:
 # 导入配置
 try:
     from config import (PROXY_URL, NETWORK_TIMEOUT, SUBTITLE_GAP, MIN_SUBTITLE_DURATION,
-                        SUBTITLE_TIME_OFFSET)
+                        SUBTITLE_TIME_OFFSET, ENABLE_ASR_ALIGNMENT, WHISPER_MODEL_SIZE)
 except ImportError:
     PROXY_URL = ""
     NETWORK_TIMEOUT = 60
     SUBTITLE_GAP = 0.2
     MIN_SUBTITLE_DURATION = 1.0
     SUBTITLE_TIME_OFFSET = 0.0
+    ENABLE_ASR_ALIGNMENT = False
+    WHISPER_MODEL_SIZE = "base"
 
 # 配置日志
 logging.basicConfig(
@@ -626,12 +628,87 @@ def process_video_with_subtitles(url: str, video_file: Path,
 
     # 3. 翻译字幕
     logger.info("=" * 50)
-    logger.info("步骤 3/4: 翻译字幕")
+    logger.info("步骤 3/5: 翻译字幕")
     try:
         bilingual_entries = translate_subtitles(entries, api_key)
     except Exception as e:
         logger.error(f"翻译失败: {e}")
         return en_srt_backup, None
+
+    # 3.5. ASR自动对齐时间轴（如果启用）
+    if ENABLE_ASR_ALIGNMENT:
+        logger.info("=" * 50)
+        logger.info("步骤 3.5/5: ASR自动对齐时间轴")
+        try:
+            from asr_align import align_subtitle_to_asr, time_to_seconds, seconds_to_time
+
+            # 准备ASR对齐所需的格式
+            asr_entries = []
+            for entry in bilingual_entries:
+                entry['start_sec'] = time_to_seconds(entry['start'])
+                entry['end_sec'] = time_to_seconds(entry['end'])
+                asr_entries.append(entry)
+
+            # 提取音频并进行ASR识别
+            import tempfile
+            import subprocess
+
+            audio_file = tempfile.NamedTemporaryFile(suffix='.wav', delete=False)
+            audio_file.close()
+
+            try:
+                # 提取音频
+                logger.info("提取音频...")
+                extract_cmd = [
+                    FFMPEG_PATH,
+                    '-i', str(video_file),
+                    '-vn',
+                    '-acodec', 'pcm_s16le',
+                    '-ar', '16000',
+                    '-ac', '1',
+                    '-y',
+                    audio_file.name
+                ]
+                result = subprocess.run(extract_cmd, capture_output=True)
+                if result.returncode != 0:
+                    raise Exception("音频提取失败")
+
+                # Whisper转录
+                logger.info(f"使用Whisper ({WHISPER_MODEL_SIZE}) 转录音频...")
+                import whisper
+                model = whisper.load_model(WHISPER_MODEL_SIZE)
+                whisper_result = model.transcribe(
+                    audio_file.name,
+                    language='en',
+                    word_timestamps=True,
+                    verbose=False
+                )
+
+                asr_segments = []
+                for segment in whisper_result['segments']:
+                    asr_segments.append({
+                        'start': segment['start'],
+                        'end': segment['end'],
+                        'text': segment['text'].strip()
+                    })
+
+                logger.info(f"ASR识别完成，共 {len(asr_segments)} 个片段")
+
+                # 对齐时间轴
+                bilingual_entries = align_subtitle_to_asr(asr_entries, asr_segments)
+                logger.info(f"ASR对齐完成")
+
+            finally:
+                # 清理临时音频文件
+                if os.path.exists(audio_file.name):
+                    os.unlink(audio_file.name)
+
+        except ImportError as e:
+            logger.warning(f"无法导入ASR模块: {e}")
+            logger.info("跳过ASR对齐，使用原始时间轴")
+        except Exception as e:
+            logger.warning(f"ASR对齐失败: {e}")
+            logger.info("使用原始时间轴")
 
     # 4. 生成中英对照字幕
     bilingual_srt = output_dir / f"{video_file.stem}.zh_cn.srt"
@@ -639,7 +716,7 @@ def process_video_with_subtitles(url: str, video_file: Path,
 
     # 5. 硬字幕压制
     logger.info("=" * 50)
-    logger.info("步骤 4/4: 硬字幕压制")
+    logger.info("步骤 4/5: 硬字幕压制")
     final_video = burn_subtitles(video_file, bilingual_srt, ffmpeg_path)
 
     return bilingual_srt, final_video
