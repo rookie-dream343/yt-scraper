@@ -120,8 +120,14 @@ def process_subtitles(url: str, video_file: Path, output_dir: Path):
     print("开始处理字幕...")
     print("=" * 50)
 
+    # 检查cookies文件
+    cookies_file = None
+    if Path(COOKIES_FILE).exists():
+        cookies_file = COOKIES_FILE
+        print(f"使用cookies: {COOKIES_FILE}")
+
     srt_file, final_video = process_video_with_subtitles(
-        url, video_file, DEEPL_API_KEY, FFMPEG_PATH, output_dir
+        url, video_file, DEEPL_API_KEY, FFMPEG_PATH, output_dir, cookies_file
     )
 
     if final_video:
