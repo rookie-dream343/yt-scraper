@@ -34,28 +34,42 @@ def seconds_to_srt_time(seconds):
     return f"{hours:02d}:{minutes:02d}:{seconds:02d},{milliseconds:03d}"
 
 def should_merge_sentences(prev_text, curr_text, time_gap):
-    """判断两句字幕是否应该合并"""
+    """判断两句字幕是否应该合并（改进版）"""
+    # 移除对话标记进行判断
     prev_text = prev_text.strip()
     curr_text = curr_text.strip()
 
+    prev_text_clean = prev_text.replace('>> ', '').replace('>>', '')
+    curr_text_clean = curr_text.replace('>> ', '').replace('>>', '')
+
     # 检查前一句是否以结束标点结尾
-    sentence_endings = ['.', '!', '?', '。', '！', '？']
-    prev_has_ending = any(prev_text.endswith(c) for c in sentence_endings)
+    sentence_endings = ['.', '!', '?', '。', '！', '？', '...']
+    prev_has_ending = any(prev_text_clean.endswith(c) for c in sentence_endings)
 
     # 检查当前句是否以大写字母开头
-    curr_starts_upper = curr_text and curr_text[0].isupper()
+    curr_text_clean = curr_text_clean if curr_text_clean else ''
+    curr_starts_upper = curr_text_clean and curr_text_clean[0].isupper()
+    curr_is_i_contract = curr_text_clean.startswith('I\'') or curr_text_clean.startswith('I ')
 
     # 检查是否是特殊标记
-    special_markers = ['[', '((', '♪', '(music)', '(laughter)']
+    special_markers = ['[music]', '[laughter]', '(music)', '(laughter)', '[', '♪']
     is_special = any(marker in curr_text.lower() for marker in special_markers)
+
+    # 使用更严格的时间间隔阈值
+    has_silence_gap = time_gap > 0.5
+
+    # 合并后的长度检查
+    merged_length = len(prev_text) + len(curr_text)
+    not_too_long = merged_length < 70
 
     # 判断是否合并
     should_merge = (
         not prev_has_ending and
         not curr_starts_upper and
-        time_gap < 1.0 and
+        not curr_is_i_contract and
+        not has_silence_gap and
         not is_special and
-        len(prev_text) + len(curr_text) < 80
+        not_too_long
     )
 
     return should_merge

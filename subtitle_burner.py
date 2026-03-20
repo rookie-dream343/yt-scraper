@@ -31,12 +31,14 @@ except ImportError:
 
 # 导入配置
 try:
-    from config import PROXY_URL, NETWORK_TIMEOUT, SUBTITLE_GAP, MIN_SUBTITLE_DURATION
+    from config import (PROXY_URL, NETWORK_TIMEOUT, SUBTITLE_GAP, MIN_SUBTITLE_DURATION,
+                        SUBTITLE_TIME_OFFSET)
 except ImportError:
     PROXY_URL = ""
     NETWORK_TIMEOUT = 60
     SUBTITLE_GAP = 0.2
     MIN_SUBTITLE_DURATION = 1.0
+    SUBTITLE_TIME_OFFSET = 0.0
 
 # 配置日志
 logging.basicConfig(
@@ -141,10 +143,12 @@ def seconds_to_time(seconds: float) -> str:
 def should_merge_sentences(prev_entry: Dict, curr_entry: Dict) -> bool:
     """判断两个字幕是否应该合并为一条
 
-    合并条件：
+    改进的合并策略：
     1. 前一句不是完整句子（没有结束标点）
     2. 当前句不是大写字母开头（可能是句子延续）
-    3. 两句之间时间间隔很短（< 1秒）
+    3. 两句之间时间间隔很短（< 0.5秒，更严格）
+    4. 合并后总长度适中
+    5. 考虑对话标记（如 ">> " 开头的行）
 
     Args:
         prev_entry: 前一个字幕条目
@@ -156,27 +160,42 @@ def should_merge_sentences(prev_entry: Dict, curr_entry: Dict) -> bool:
     prev_text = prev_entry['text_en'].strip()
     curr_text = curr_entry['text_en'].strip()
 
+    # 移除对话标记进行判断
+    prev_text_clean = prev_text.replace('>> ', '').replace('>>', '')
+    curr_text_clean = curr_text.replace('>> ', '').replace('>>', '')
+
     # 检查前一句是否以结束标点结尾
-    sentence_endings = ['.', '!', '?', '。', '！', '？']
-    prev_has_ending = any(prev_text.endswith(c) for c in sentence_endings)
+    sentence_endings = ['.', '!', '?', '。', '！', '？', '...']
+    prev_has_ending = any(prev_text_clean.endswith(c) for c in sentence_endings)
 
     # 检查当前句是否以大写字母开头（可能是新句子）
-    curr_starts_upper = curr_text and curr_text[0].isupper()
+    # 排除开头是 "I'm", "I'll" 等情况
+    curr_starts_upper = curr_text_clean and curr_text_clean[0].isupper()
+    curr_is_i_contract = curr_text_clean.startswith('I\'') or curr_text_clean.startswith('I ')
 
     # 检查是否是特殊标记（如音乐、笑声等）
-    special_markers = ['[', '(', '♪', '#', '(music)', '(laughter)']
+    special_markers = ['[music]', '[laughter]', '(music)', '(laughter)', '[', '♪']
     is_special = any(marker in curr_text.lower() for marker in special_markers)
 
-    # 时间间隔
+    # 时间间隔 - 使用更严格的0.5秒阈值
     time_gap = curr_entry['start_sec'] - prev_entry['end_sec']
 
-    # 判断：如果前一句没有结束，且当前句不是大写开头，且时间间隔短，则合并
+    # 检查两句话之间是否有明显的"沉默"间隔
+    # 如果间隔超过0.5秒，通常表示说话者转换或停顿，不应合并
+    has_silence_gap = time_gap > 0.5
+
+    # 合并后的长度检查（考虑中英文两行）
+    merged_length = len(prev_text) + len(curr_text)
+    not_too_long = merged_length < 70  # 更严格的长度限制
+
+    # 判断：如果前一句没有结束，且当前句不是大写开头，且时间间隔短，且不是特殊标记
     should_merge = (
         not prev_has_ending and
         not curr_starts_upper and
-        time_gap < 1.0 and
+        not curr_is_i_contract and
+        not has_silence_gap and
         not is_special and
-        len(prev_text) + len(curr_text) < 80  # 合并后不会太长
+        not_too_long
     )
 
     return should_merge
@@ -264,17 +283,31 @@ def adjust_subtitle_timing(entries: List[Dict], gap: float = SUBTITLE_GAP,
     return adjusted
 
 
-def write_bilingual_srt(entries: List[Dict], output_file: Path, adjust_timing: bool = True):
+def write_bilingual_srt(entries: List[Dict], output_file: Path, adjust_timing: bool = True, time_offset: float = 0):
     """写入中英对照SRT文件
 
     Args:
         entries: 字幕条目列表，每个包含 text_en 和 text_zh
         output_file: 输出文件路径
         adjust_timing: 是否调整时间轴避免重叠
+        time_offset: 时间偏移（秒），正数延后，负数提前
     """
     # 应用时间轴调整
     if adjust_timing:
         entries = adjust_subtitle_timing(entries)
+
+    # 应用时间偏移
+    if time_offset != 0:
+        for entry in entries:
+            entry['start_sec'] += time_offset
+            entry['end_sec'] += time_offset
+            # 确保时间不为负
+            if entry['start_sec'] < 0:
+                entry['start_sec'] = 0
+            if entry['end_sec'] < entry['start_sec'] + 0.5:
+                entry['end_sec'] = entry['start_sec'] + 0.5
+            entry['start'] = seconds_to_time(entry['start_sec'])
+            entry['end'] = seconds_to_time(entry['end_sec'])
 
     with open(output_file, 'w', encoding='utf-8') as f:
         for i, entry in enumerate(entries, 1):
@@ -285,6 +318,8 @@ def write_bilingual_srt(entries: List[Dict], output_file: Path, adjust_timing: b
             f.write("\n")
 
     logger.info(f"中英对照字幕已保存: {output_file}")
+    if time_offset != 0:
+        logger.info(f"已应用时间偏移: {time_offset:+.2f}秒")
 
 
 # ==================== 字幕提取 ====================
@@ -600,7 +635,7 @@ def process_video_with_subtitles(url: str, video_file: Path,
 
     # 4. 生成中英对照字幕
     bilingual_srt = output_dir / f"{video_file.stem}.zh_cn.srt"
-    write_bilingual_srt(bilingual_entries, bilingual_srt)
+    write_bilingual_srt(bilingual_entries, bilingual_srt, time_offset=SUBTITLE_TIME_OFFSET)
 
     # 5. 硬字幕压制
     logger.info("=" * 50)

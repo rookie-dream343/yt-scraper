@@ -1,269 +1,189 @@
 1
-00:00:00,800 --> 00:00:03,919
-doity day
-潇洒日
+00:00:00,800 --> 00:00:05,120
+doity day squid.
+潇洒日 乌贼
 
 2
-00:00:04,118 --> 00:00:05,120
-squid.
-乌贼
+00:00:05,320 --> 00:00:07,759
+>> All right, I think it's time we go back to the office.
+>> 好了，我想我们该回去了 到办公室。
 
 3
-00:00:05,320 --> 00:00:06,320
->> All right, I think it's time we go back
->> 好了，我想我们该回去了
+00:00:07,959 --> 00:00:11,039
+>> I love everything. I love life. I love everything. I love
+>> 我热爱一切。我热爱生活。我爱 一切我爱
 
 4
-00:00:06,520 --> 00:00:07,759
-to the office.
-到办公室。
+00:00:11,239 --> 00:00:14,638
+>> Okay, stop, please. It's kind of annoying now.
+>> 好了，别说了。这有点 现在可恼了。
 
 5
-00:00:07,959 --> 00:00:09,119
->> I love everything. I love life. I love
->> 我热爱一切。我热爱生活。我爱
+00:00:14,838 --> 00:00:17,920
+>> But I love >> swim. Being positive is good, but
+>> 但我喜欢 >> 游泳。积极是好事，但
 
 6
-00:00:09,319 --> 00:00:11,039
-everything. I love
-一切我爱
+00:00:18,120 --> 00:00:20,800
+there's a time and a place. You behaved pretty bad with Mr. Ice Cream back
+有时间和地点。你的行为 冰激凌先生回来后，情况相当糟糕
 
 7
-00:00:11,239 --> 00:00:12,239
->> Okay, stop, please. It's kind of
->> 好了，别说了。这有点
-
-8
-00:00:12,439 --> 00:00:14,638
-annoying now.
-现在可恼了。
-
-9
-00:00:14,838 --> 00:00:16,160
->> But I love
->> 但我喜欢
-
-10
-00:00:16,359 --> 00:00:17,920
->> swim. Being positive is good, but
->> 游泳。积极是好事，但
-
-11
-00:00:18,120 --> 00:00:19,439
-there's a time and a place. You behaved
-有时间和地点。你的行为
-
-12
-00:00:19,638 --> 00:00:20,800
-pretty bad with Mr. Ice Cream back
-冰激凌先生回来后，情况相当糟糕
-
-13
 00:00:21,000 --> 00:00:22,559
 there.
 那里
 
-14
-00:00:22,759 --> 00:00:24,239
->> I'm not trying to be mean. I'm just, you
->> 我并不想刻薄。我只是
+8
+00:00:22,759 --> 00:00:27,839
+>> I'm not trying to be mean. I'm just, you know, I'm just saying.
+>> 我并不想刻薄。我只是 我只是说说
 
-15
-00:00:24,439 --> 00:00:27,839
-know, I'm just saying.
-我只是说说
-
-16
+9
 00:00:28,039 --> 00:00:30,239
 >> Oh, I see. I I I get it, Pim. I get it.
 >> 哦，我明白了。我明白了，皮姆。我明白了
 
-17
-00:00:30,439 --> 00:00:31,920
-I wasn't being positive at all. I'm
-我一点也不积极。我
+10
+00:00:30,439 --> 00:00:34,000
+I wasn't being positive at all. I'm going to help this couple. I'm going to
+我一点也不积极。我 要帮助这对夫妇。我要
 
-18
-00:00:32,120 --> 00:00:34,000
-going to help this couple. I'm going to
-要帮助这对夫妇。我要
+11
+00:00:34,200 --> 00:00:35,920
+help this wheel. I'm going to help this homeless thing.
+帮助这个轮子。我要帮助这个 无家可归
 
-19
-00:00:34,200 --> 00:00:35,200
-help this wheel. I'm going to help this
-帮助这个轮子。我要帮助这个
-
-20
-00:00:35,400 --> 00:00:36,400
-homeless thing.
-无家可归
-
-21
-00:00:36,600 --> 00:00:37,600
+12
+00:00:36,120 --> 00:00:37,120
 >> Swim, calm down.
 >>游泳，冷静。
 
-22
-00:00:37,800 --> 00:00:38,800
->> Oh, I got to help those police over
->> 哦，我得帮助那些警察了
+13
+00:00:37,320 --> 00:00:39,520
+>> Oh, I got to help those police over there with whatever they're doing.
+>> 哦，我得帮助那些警察了 不管他们在做什么。
 
-23
-00:00:39,000 --> 00:00:40,000
-there with whatever they're doing.
-不管他们在做什么。
-
-24
-00:00:40,200 --> 00:00:42,000
+14
+00:00:39,720 --> 00:00:42,000
 >> Swim, get back here.
 >>游泳，快回来
 
-25
+15
 00:00:42,200 --> 00:00:43,679
 >> Sir, get on the ground.
 >>先生，请趴下。
 
-26
+16
 00:00:43,880 --> 00:00:46,079
 >> Get on the ground, MAN. GET ON THE
 >> 趴在地上趴下
 
-27
+17
 00:00:46,279 --> 00:00:47,359
 GROUND.
 地面：
 
-28
+18
 00:00:47,560 --> 00:00:49,039
 >> SIR, we have you surrounded.
 >> 先生，我们已经把你包围了。
 
-29
-00:00:49,239 --> 00:00:51,759
->> OH MY GOSH. CHARLIE,
->> 我的天啊查理：
+19
+00:00:49,239 --> 00:00:55,920
+>> OH MY GOSH. CHARLIE, >> DANCE. Everybody doing the swim dance.
+>> 我的天啊查理： >>舞蹈。大家一起跳游泳舞
 
-30
-00:00:51,960 --> 00:00:55,920
->> DANCE. Everybody doing the swim dance.
->>舞蹈。大家一起跳游泳舞
-
-31
+20
 00:00:56,120 --> 00:00:57,840
 >> HE'S DOING THE SWIM DANCE. SHOOT HIM.
 >> 他在跳游泳舞射他
 
-32
+21
 00:00:58,040 --> 00:00:59,600
 >> Stop shooting. Shots fired. Shots fired.
 >> 停止射击开枪了开枪了
 
-33
+22
 00:00:59,800 --> 00:01:02,759
 >> Do a little square. Make a little love.
 >> 做一点正方形。献出一点爱
 
-34
+23
 00:01:02,960 --> 00:01:03,960
 Get down.
 趴下
 
-35
+24
 00:01:04,640 --> 00:01:08,079
 >> You really proved your loyalty to me,
 >> 你真的证明了你对我的忠诚、
 
-36
-00:01:06,239 --> 00:01:09,039
-Charlie. Everything ended up working out
-查理最终一切顺利
+25
+00:01:08,280 --> 00:01:11,519
+Charlie. Everything ended up working out in the end.
+查理最终一切顺利 最后
 
-37
-00:01:09,239 --> 00:01:11,519
-in the end.
-最后
+26
+00:01:11,719 --> 00:01:14,719
+>> Except for Squim. I feel terrible about what happened to him.
+>> 除了Squim。我对 他发生了什么事。
 
-38
-00:01:11,719 --> 00:01:12,879
->> Except for Squim. I feel terrible about
->> 除了Squim。我对
-
-39
-00:01:13,079 --> 00:01:14,719
-what happened to him.
-他发生了什么事。
-
-40
+27
 00:01:14,920 --> 00:01:16,960
 >> What do you mean? Squim's soul just went
 >> 什么意思？Squim的灵魂刚刚去了
 
-41
+28
 00:01:17,160 --> 00:01:19,960
-through a 14-hour surgery. He's going to
-经历了 14 个小时的手术。他将
+through a 14-hour surgery. He's going to live.
+经历了 14 个小时的手术。他将 住。
 
-42
-00:01:20,160 --> 00:01:21,160
-live.
-住。
-
-43
+29
 00:01:21,840 --> 00:01:25,039
 >> Hello there.
 >> 您好。
 
-44
+30
 00:01:25,239 --> 00:01:26,560
 >> I'm sorry. Who Who is Who is this? He
 >> 对不起。谁是谁？他
 
-45
-00:01:26,760 --> 00:01:28,799
-was like the first smiling friend I ever
-就像我第一个微笑的朋友
+31
+00:01:26,760 --> 00:01:30,319
+was like the first smiling friend I ever hired. Uh used to be like really wacky
+就像我第一个微笑的朋友 受雇。呃，以前真的很古怪
 
-46
-00:01:28,999 --> 00:01:30,319
-hired. Uh used to be like really wacky
-受雇。呃，以前真的很古怪
-
-47
+32
 00:01:30,519 --> 00:01:31,519
 and stuff. Pim could back me up.
 什么的。皮姆可以支持我
 
-48
+33
 00:01:31,719 --> 00:01:32,799
 >> Yeah, he was. Yeah.
 >> 是的是的
 
-49
-00:01:32,999 --> 00:01:33,999
->> Yeah. If you saw him before, it'd make
->>是的，如果你以前见过他，就会觉得
+34
+00:01:32,999 --> 00:01:36,286
+>> Yeah. If you saw him before, it'd make more sense.
+>>是的，如果你以前见过他，就会觉得 更有意义。
 
-50
-00:01:34,199 --> 00:01:36,286
-more sense.
-更有意义。
-
-51
+35
 00:01:36,486 --> 00:01:38,305
 >> Uh okay.
 >> 好吧
 
-52
+36
 00:01:38,506 --> 00:01:39,506
 [music]
 [音乐]
 
-53
+37
 00:01:40,871 --> 00:01:42,890
 [music]
 [音乐]
 
-54
+38
 00:01:46,110 --> 00:01:48,131
 [music]
 [音乐]

@@ -76,3 +76,145 @@ Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'downloads\Squim Returns ｜ Smiling Fri
 Error opening output file downloads\Squim Returns ｜ Smiling Friends ｜ adult swim_zh_cn.mp4.
 Error opening output files: Invalid argument
 
+2026-03-21 00:08:25,691 - INFO - ==================================================
+2026-03-21 00:08:25,691 - INFO - 步骤 1/4: 提取字幕
+2026-03-21 00:08:25,691 - INFO - 使用cookies文件: D:\coding项目\yt scraper\cookies.txt
+2026-03-21 00:08:35,854 - INFO - 手动字幕: []
+2026-03-21 00:08:35,854 - INFO - 自动字幕: ['ab', 'aa', 'af', 'ak', 'sq', 'am', 'ar', 'hy', 'as', 'ay', 'az', 'bn', 'ba', 'eu', 'be', 'bho', 'bs', 'br', 'bg', 'my', 'ca', 'ceb', 'zh-Hans', 'zh-Hant', 'co', 'hr', 'cs', 'da', 'dv', 'nl', 'dz', 'en-orig', 'en', 'eo', 'et', 'ee', 'fo', 'fj', 'fil', 'fi', 'fr', 'gaa', 'gl', 'lg', 'ka', 'de', 'el', 'gn', 'gu', 'ht', 'ha', 'haw', 'iw', 'hi', 'hmn', 'hu', 'is', 'ig', 'id', 'iu', 'ga', 'it', 'ja', 'jv', 'kl', 'kn', 'kk', 'kha', 'km', 'rw', 'ko', 'kri', 'ku', 'ky', 'lo', 'la', 'lv', 'ln', 'lt', 'lua', 'luo', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'gv', 'mi', 'mr', 'mn', 'mfe', 'ne', 'new', 'nso', 'no', 'ny', 'oc', 'or', 'om', 'os', 'pam', 'ps', 'fa', 'pl', 'pt', 'pt-PT', 'pa', 'qu', 'ro', 'rn', 'ru', 'sm', 'sg', 'sa', 'gd', 'sr', 'crs', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'st', 'es', 'su', 'sw', 'ss', 'sv', 'tg', 'ta', 'tt', 'te', 'th', 'bo', 'ti', 'to', 'ts', 'tn', 'tum', 'tr', 'tk', 'uk', 'ur', 'ug', 'uz', 've', 'vi', 'war', 'cy', 'fy', 'wo', 'xh', 'yi', 'yo', 'zu']
+2026-03-21 00:08:35,856 - INFO - 使用cookies文件: D:\coding项目\yt scraper\cookies.txt
+2026-03-21 00:08:35,856 - INFO - 开始下载字幕，语言: ['en']
+2026-03-21 00:08:43,084 - INFO - 字幕下载成功: downloads\Squim Returns _ Smiling Friends _ adult swim.en.srt
+2026-03-21 00:08:43,086 - INFO - 英文字幕已保存: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim.en.srt
+2026-03-21 00:08:43,087 - INFO - ==================================================
+2026-03-21 00:08:43,087 - INFO - 步骤 2/4: 解析字幕
+2026-03-21 00:08:43,087 - INFO - 解析SRT文件: 54 条字幕
+2026-03-21 00:08:43,087 - INFO - ==================================================
+2026-03-21 00:08:43,087 - INFO - 步骤 3/4: 翻译字幕
+2026-03-21 00:08:43,087 - INFO - 开始翻译 54 条字幕...
+2026-03-21 00:08:43,087 - INFO - Request to DeepL API method=POST url=https://api-free.deepl.com/v2/translate
+2026-03-21 00:08:45,154 - INFO - DeepL API response status_code=200 url=https://api-free.deepl.com/v2/translate
+2026-03-21 00:08:45,155 - INFO - 翻译完成
+2026-03-21 00:08:45,156 - INFO - 调整了 54 条字幕的时间轴
+2026-03-21 00:08:45,157 - INFO - 中英对照字幕已保存: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim.zh_cn.srt
+2026-03-21 00:08:45,158 - INFO - ==================================================
+2026-03-21 00:08:45,158 - INFO - 步骤 4/4: 硬字幕压制
+2026-03-21 00:08:45,171 - INFO - 开始压制字幕...
+2026-03-21 00:08:45,172 - INFO - 输出文件: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim_zh_cn.mp4
+2026-03-21 00:08:45,206 - ERROR - FFmpeg错误: ffmpeg version 8.1-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 15.2.0 (Rev11, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-cairo --enable-fontconfig --enable-iconv --enable-gnutls --enable-lcms2 --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-sdl2 --enable-libaribb24 --enable-libaribcaption --enable-libdav1d --enable-libdavs2 --enable-libopenjpeg --enable-libquirc --enable-libuavs3d --enable-libxevd --enable-libzvbi --enable-liboapv --enable-libqrencode --enable-librav1e --enable-libsvtav1 --enable-libvvenc --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxeve --enable-libxvid --enable-libaom --enable-libjxl --enable-libsvtjpegxs --enable-libvpx --enable-mediafoundation --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-liblensfun --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-libshaderc --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-openal --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libcodec2 --enable-libilbc --enable-libgsm --enable-liblc3 --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint --enable-whisper
+  libavutil      60. 26.100 / 60. 26.100
+  libavcodec     62. 28.100 / 62. 28.100
+  libavformat    62. 12.100 / 62. 12.100
+  libavdevice    62.  3.100 / 62.  3.100
+  libavfilter    11. 14.100 / 11. 14.100
+  libswscale      9.  5.100 /  9.  5.100
+  libswresample   6.  3.100 /  6.  3.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'downloads\temp_burn_video.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomav01iso2mp41
+    encoder         : Lavf62.12.100
+  Duration: 00:01:50.33, start: 0.000000, bitrate: 906 kb/s
+  Stream #0:0[0x1](und): Video: av1 (libdav1d) (Main) (av01 / 0x31307661), yuv420p(tv, bt709), 1920x1080 [SAR 1:1 DAR 16:9], 771 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+    Metadata:
+      handler_name    : ISO Media file produced by Google Inc.
+  Stream #0:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 130 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+[Parsed_subtitles_0 @ 000001e7c3b7dd00] libass API version: 0x1704000
+[Parsed_subtitles_0 @ 000001e7c3b7dd00] libass source: commit: 0.17.4-21-gfadc390583f24eb5cf98f16925fd3adee50bca88
+[Parsed_subtitles_0 @ 000001e7c3b7dd00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 13.1.1 (COMPLEX)
+[Parsed_subtitles_0 @ 000001e7c3b7dd00] Unable to open temp_burn_subs.srt
+[AVFilterGraph @ 000001e7c3b7dc40] Error initializing filters
+Error opening output file downloads\Squim Returns ｜ Smiling Friends ｜ adult swim_zh_cn.mp4.
+Error opening output files: No such file or directory
+
+2026-03-21 00:11:31,842 - INFO - ==================================================
+2026-03-21 00:11:31,842 - INFO - 步骤 1/4: 提取字幕
+2026-03-21 00:11:31,843 - INFO - 使用cookies文件: D:\coding项目\yt scraper\cookies.txt
+2026-03-21 00:11:41,722 - INFO - 手动字幕: []
+2026-03-21 00:11:41,722 - INFO - 自动字幕: ['ab', 'aa', 'af', 'ak', 'sq', 'am', 'ar', 'hy', 'as', 'ay', 'az', 'bn', 'ba', 'eu', 'be', 'bho', 'bs', 'br', 'bg', 'my', 'ca', 'ceb', 'zh-Hans', 'zh-Hant', 'co', 'hr', 'cs', 'da', 'dv', 'nl', 'dz', 'en-orig', 'en', 'eo', 'et', 'ee', 'fo', 'fj', 'fil', 'fi', 'fr', 'gaa', 'gl', 'lg', 'ka', 'de', 'el', 'gn', 'gu', 'ht', 'ha', 'haw', 'iw', 'hi', 'hmn', 'hu', 'is', 'ig', 'id', 'iu', 'ga', 'it', 'ja', 'jv', 'kl', 'kn', 'kk', 'kha', 'km', 'rw', 'ko', 'kri', 'ku', 'ky', 'lo', 'la', 'lv', 'ln', 'lt', 'lua', 'luo', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'gv', 'mi', 'mr', 'mn', 'mfe', 'ne', 'new', 'nso', 'no', 'ny', 'oc', 'or', 'om', 'os', 'pam', 'ps', 'fa', 'pl', 'pt', 'pt-PT', 'pa', 'qu', 'ro', 'rn', 'ru', 'sm', 'sg', 'sa', 'gd', 'sr', 'crs', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'st', 'es', 'su', 'sw', 'ss', 'sv', 'tg', 'ta', 'tt', 'te', 'th', 'bo', 'ti', 'to', 'ts', 'tn', 'tum', 'tr', 'tk', 'uk', 'ur', 'ug', 'uz', 've', 'vi', 'war', 'cy', 'fy', 'wo', 'xh', 'yi', 'yo', 'zu']
+2026-03-21 00:11:41,724 - INFO - 使用cookies文件: D:\coding项目\yt scraper\cookies.txt
+2026-03-21 00:11:41,724 - INFO - 开始下载字幕，语言: ['en']
+2026-03-21 00:11:48,875 - INFO - 字幕下载成功: downloads\Squim Returns _ Smiling Friends _ adult swim.en.srt
+2026-03-21 00:11:48,877 - INFO - 英文字幕已保存: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim.en.srt
+2026-03-21 00:11:48,877 - INFO - ==================================================
+2026-03-21 00:11:48,877 - INFO - 步骤 2/4: 解析字幕
+2026-03-21 00:11:48,877 - INFO - 解析SRT文件: 54 条字幕
+2026-03-21 00:11:48,878 - INFO - ==================================================
+2026-03-21 00:11:48,878 - INFO - 步骤 3/4: 翻译字幕
+2026-03-21 00:11:48,878 - INFO - 开始翻译 54 条字幕...
+2026-03-21 00:11:48,878 - INFO - Request to DeepL API method=POST url=https://api-free.deepl.com/v2/translate
+2026-03-21 00:11:51,223 - INFO - DeepL API response status_code=200 url=https://api-free.deepl.com/v2/translate
+2026-03-21 00:11:51,224 - INFO - 翻译完成
+2026-03-21 00:11:51,225 - INFO - 调整了 54 条字幕的时间轴
+2026-03-21 00:11:51,225 - INFO - 中英对照字幕已保存: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim.zh_cn.srt
+2026-03-21 00:11:51,226 - INFO - ==================================================
+2026-03-21 00:11:51,226 - INFO - 步骤 4/4: 硬字幕压制
+2026-03-21 00:11:51,238 - INFO - 开始压制字幕...
+2026-03-21 00:11:51,238 - INFO - 输出文件: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim_zh_cn.mp4
+2026-03-21 00:11:51,271 - ERROR - FFmpeg错误: ffmpeg version 8.1-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers
+  built with gcc 15.2.0 (Rev11, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --disable-w32threads --disable-autodetect --enable-cairo --enable-fontconfig --enable-iconv --enable-gnutls --enable-lcms2 --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-libsnappy --enable-zlib --enable-librist --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-libbluray --enable-libcaca --enable-libdvdnav --enable-libdvdread --enable-sdl2 --enable-libaribb24 --enable-libaribcaption --enable-libdav1d --enable-libdavs2 --enable-libopenjpeg --enable-libquirc --enable-libuavs3d --enable-libxevd --enable-libzvbi --enable-liboapv --enable-libqrencode --enable-librav1e --enable-libsvtav1 --enable-libvvenc --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxeve --enable-libxvid --enable-libaom --enable-libjxl --enable-libsvtjpegxs --enable-libvpx --enable-mediafoundation --enable-libass --enable-frei0r --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-liblensfun --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-dxva2 --enable-d3d11va --enable-d3d12va --enable-ffnvcodec --enable-libvpl --enable-nvdec --enable-nvenc --enable-vaapi --enable-libshaderc --enable-vulkan --enable-libplacebo --enable-opencl --enable-libcdio --enable-openal --enable-libgme --enable-libmodplug --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libshine --enable-libtheora --enable-libtwolame --enable-libvo-amrwbenc --enable-libcodec2 --enable-libilbc --enable-libgsm --enable-liblc3 --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-ladspa --enable-libbs2b --enable-libflite --enable-libmysofa --enable-librubberband --enable-libsoxr --enable-chromaprint --enable-whisper
+  libavutil      60. 26.100 / 60. 26.100
+  libavcodec     62. 28.100 / 62. 28.100
+  libavformat    62. 12.100 / 62. 12.100
+  libavdevice    62.  3.100 / 62.  3.100
+  libavfilter    11. 14.100 / 11. 14.100
+  libswscale      9.  5.100 /  9.  5.100
+  libswresample   6.  3.100 /  6.  3.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'downloads\temp_burn_video.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomav01iso2mp41
+    encoder         : Lavf62.12.100
+  Duration: 00:01:50.33, start: 0.000000, bitrate: 906 kb/s
+  Stream #0:0[0x1](und): Video: av1 (libdav1d) (Main) (av01 / 0x31307661), yuv420p(tv, bt709), 1920x1080 [SAR 1:1 DAR 16:9], 771 kb/s, 23.98 fps, 23.98 tbr, 24k tbn (default)
+    Metadata:
+      handler_name    : ISO Media file produced by Google Inc.
+  Stream #0:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 130 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+[Parsed_subtitles_0 @ 000001f8de1cdd00] libass API version: 0x1704000
+[Parsed_subtitles_0 @ 000001f8de1cdd00] libass source: commit: 0.17.4-21-gfadc390583f24eb5cf98f16925fd3adee50bca88
+[Parsed_subtitles_0 @ 000001f8de1cdd00] Shaper: FriBidi 1.0.16 (SIMPLE) HarfBuzz-ng 13.1.1 (COMPLEX)
+[Parsed_subtitles_0 @ 000001f8de1cdd00] Unable to open temp_burn_subs.srt
+[AVFilterGraph @ 000001f8de1cdc40] Error initializing filters
+Error opening output file downloads\Squim Returns ｜ Smiling Friends ｜ adult swim_zh_cn.mp4.
+Error opening output files: No such file or directory
+
+2026-03-21 00:19:57,294 - INFO - ==================================================
+2026-03-21 00:19:57,294 - INFO - 步骤 1/4: 提取字幕
+2026-03-21 00:19:57,295 - INFO - 使用cookies文件: D:\coding项目\yt scraper\cookies.txt
+2026-03-21 00:19:59,660 - ERROR - 获取字幕信息失败: [0;31mERROR:[0m [youtube] kCWbBfUh9oU: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+2026-03-21 00:19:59,661 - ERROR - 无法获取字幕信息
+2026-03-21 00:19:59,661 - ERROR - 字幕提取失败
+2026-03-21 00:22:03,858 - INFO - ==================================================
+2026-03-21 00:22:03,859 - INFO - 步骤 1/4: 提取字幕
+2026-03-21 00:22:03,859 - INFO - 使用cookies文件: D:\coding项目\yt scraper\cookies.txt
+2026-03-21 00:22:11,035 - INFO - 手动字幕: []
+2026-03-21 00:22:11,035 - INFO - 自动字幕: ['ab', 'aa', 'af', 'ak', 'sq', 'am', 'ar', 'hy', 'as', 'ay', 'az', 'bn', 'ba', 'eu', 'be', 'bho', 'bs', 'br', 'bg', 'my', 'ca', 'ceb', 'zh-Hans', 'zh-Hant', 'co', 'hr', 'cs', 'da', 'dv', 'nl', 'dz', 'en-orig', 'en', 'eo', 'et', 'ee', 'fo', 'fj', 'fil', 'fi', 'fr', 'gaa', 'gl', 'lg', 'ka', 'de', 'el', 'gn', 'gu', 'ht', 'ha', 'haw', 'iw', 'hi', 'hmn', 'hu', 'is', 'ig', 'id', 'iu', 'ga', 'it', 'ja', 'jv', 'kl', 'kn', 'kk', 'kha', 'km', 'rw', 'ko', 'kri', 'ku', 'ky', 'lo', 'la', 'lv', 'ln', 'lt', 'lua', 'luo', 'lb', 'mk', 'mg', 'ms', 'ml', 'mt', 'gv', 'mi', 'mr', 'mn', 'mfe', 'ne', 'new', 'nso', 'no', 'ny', 'oc', 'or', 'om', 'os', 'pam', 'ps', 'fa', 'pl', 'pt', 'pt-PT', 'pa', 'qu', 'ro', 'rn', 'ru', 'sm', 'sg', 'sa', 'gd', 'sr', 'crs', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'st', 'es', 'su', 'sw', 'ss', 'sv', 'tg', 'ta', 'tt', 'te', 'th', 'bo', 'ti', 'to', 'ts', 'tn', 'tum', 'tr', 'tk', 'uk', 'ur', 'ug', 'uz', 've', 'vi', 'war', 'cy', 'fy', 'wo', 'xh', 'yi', 'yo', 'zu']
+2026-03-21 00:22:11,037 - INFO - 使用cookies文件: D:\coding项目\yt scraper\cookies.txt
+2026-03-21 00:22:11,037 - INFO - 开始下载字幕，语言: ['en']
+2026-03-21 00:22:18,260 - INFO - 字幕下载成功: downloads\Squim Returns _ Smiling Friends _ adult swim.en.srt
+2026-03-21 00:22:18,262 - INFO - 英文字幕已保存: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim.en.srt
+2026-03-21 00:22:18,262 - INFO - ==================================================
+2026-03-21 00:22:18,262 - INFO - 步骤 2/4: 解析字幕
+2026-03-21 00:22:18,262 - INFO - 解析SRT文件: 54 条字幕
+2026-03-21 00:22:18,262 - INFO - ==================================================
+2026-03-21 00:22:18,262 - INFO - 步骤 3/4: 翻译字幕
+2026-03-21 00:22:18,262 - INFO - 开始翻译 54 条字幕...
+2026-03-21 00:22:18,263 - INFO - Request to DeepL API method=POST url=https://api-free.deepl.com/v2/translate
+2026-03-21 00:22:20,048 - INFO - DeepL API response status_code=200 url=https://api-free.deepl.com/v2/translate
+2026-03-21 00:22:20,049 - INFO - 翻译完成
+2026-03-21 00:22:20,050 - INFO - 合并字幕: 54 -> 38 条
+2026-03-21 00:22:20,050 - INFO - 调整后: 38 条字幕
+2026-03-21 00:22:20,050 - INFO - 中英对照字幕已保存: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim.zh_cn.srt
+2026-03-21 00:22:20,051 - INFO - ==================================================
+2026-03-21 00:22:20,051 - INFO - 步骤 4/4: 硬字幕压制
+2026-03-21 00:22:20,064 - INFO - 开始压制字幕...
+2026-03-21 00:22:20,064 - INFO - 输出文件: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim_zh_cn.mp4
+2026-03-21 00:22:27,103 - INFO - 硬字幕压制完成: downloads\Squim Returns ｜ Smiling Friends ｜ adult swim_zh_cn.mp4
