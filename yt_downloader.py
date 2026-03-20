@@ -13,13 +13,14 @@ from pathlib import Path
 from typing import Optional
 
 try:
-    from config import DEEPL_API_KEY, FFMPEG_PATH, DENO_PATH, COOKIES_FILE, SUBTITLE_STYLE
+    from config import DEEPL_API_KEY, FFMPEG_PATH, DENO_PATH, COOKIES_FILE, SUBTITLE_STYLE, COOKIES_FROM_BROWSER
 except ImportError:
     print("警告: 无法导入config.py，使用默认配置")
     DEEPL_API_KEY = ""
     DENO_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\DenoLand.Deno_Microsoft.Winget.Source_8wekyb3d8bbwe\deno.exe"
     FFMPEG_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1-full_build\bin\ffmpeg.exe"
     COOKIES_FILE = "cookies.txt"
+    COOKIES_FROM_BROWSER = "chrome"
     SUBTITLE_STYLE = {}
 
 def get_latest_video(output_dir: Path) -> Optional[Path]:
@@ -34,13 +35,20 @@ def download_video(url: str, output_dir: str = './downloads', quality: str = 'be
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
-    # 检查cookies
-    cookies_path = Path(COOKIES_FILE)
+    # Cookies处理：优先使用浏览器cookies，备选使用文件cookies
     cookies_arg = []
-    if cookies_path.exists():
+    cookies_path = Path(COOKIES_FILE)
+
+    # 尝试从浏览器获取cookies
+    if COOKIES_FROM_BROWSER:
+        cookies_arg = ['--cookies-from-browser', COOKIES_FROM_BROWSER]
+        print(f"使用浏览器cookies: {COOKIES_FROM_BROWSER}")
+    # 否则使用cookies文件
+    elif cookies_path.exists():
         cookies_arg = ['--cookies', str(cookies_path)]
+        print(f"使用cookies文件: {COOKIES_FILE}")
     else:
-        print(f"警告: 未找到 {COOKIES_FILE}，可能无法下载")
+        print(f"警告: 未找到cookies，使用无cookie模式（可能失败）")
 
     # 检查deno
     deno_arg = []

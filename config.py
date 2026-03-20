@@ -11,7 +11,7 @@ from pathlib import Path
 # 请在此处填入您的DeepL API密钥
 # 获取方式: https://www.deepl.com/pro-api
 # 免费版每月可翻译50万字符
-DEEPL_API_KEY = ""  # 请填入您的API密钥
+DEEPL_API_KEY = "e7d81b65-e92c-42db-bc9f-07c1ccc965e3:fx"  # 请填入您的API密钥
 
 # ==================== 工具路径配置 ====================
 # FFmpeg路径
@@ -22,6 +22,11 @@ DENO_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\DenoLand
 
 # Cookies文件路径
 COOKIES_FILE = "cookies.txt"
+
+# 从浏览器自动获取cookies（推荐，无需手动导出）
+# 支持的浏览器: chrome, edge, firefox, opera, brave, vivaldi
+# 设为 None 或空字符串 则使用cookies.txt文件
+COOKIES_FROM_BROWSER = "chrome"  # 推荐：chrome, edge, firefox
 
 # ==================== 字幕样式配置 ====================
 # 硬字幕样式
