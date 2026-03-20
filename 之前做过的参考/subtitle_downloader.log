@@ -1,0 +1,14 @@
+2025-08-09 15:13:00,202 - INFO - 找到 0 种手动字幕
+2025-08-09 15:13:00,203 - INFO - 找到 157 种自动字幕
+2025-08-09 15:13:00,208 - ERROR - 获取字幕语言失败: 'list' object has no attribute 'keys'
+2025-08-09 15:13:22,327 - INFO - 找到 0 种手动字幕
+2025-08-09 15:13:22,328 - INFO - 找到 157 种自动字幕
+2025-08-09 15:13:22,330 - INFO - 视频标题: 劇場アニメ『ひゃくえむ。』キャラクターPV【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】
+2025-08-09 15:13:22,330 - INFO - 视频ID: YT2Sh7sbZak
+2025-08-09 15:13:22,331 - INFO - 开始下载字幕，语言: ['en', 'zh-Hans', 'zh', 'auto']
+2025-08-09 15:13:33,135 - INFO - 成功下载 5 个字幕文件:
+2025-08-09 15:13:33,135 - INFO -   - Genie 3： The World Becomes Playable (DeepMind).en.srt
+2025-08-09 15:13:33,135 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.en.srt
+2025-08-09 15:13:33,136 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.zh-Hans.srt
+2025-08-09 15:13:33,136 - INFO -   - When the protagonist feels alien.en.srt
+2025-08-09 15:13:33,136 - INFO -   - When the protagonist feels alien.en_translated_zh-cn.srt

@@ -1,0 +1,195 @@
+2025-08-05 17:14:54,252 - INFO - 找到FFmpeg: ffmpeg
+2025-08-05 17:15:37,765 - INFO - 准备下载视频: Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos
+2025-08-05 17:15:37,770 - INFO - 视频质量: 1080p
+2025-08-05 17:15:37,771 - INFO - 字幕语言: ['en', 'zh-Hans', 'zh', 'auto']
+2025-08-05 17:45:06,753 - INFO - 找到FFmpeg: ffmpeg
+2025-08-05 17:45:28,476 - INFO - 准备下载视频: 劇場アニメ『ひゃくえむ。』本予告【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】｜𝟏𝟎𝟎 𝐌𝐞𝐭𝐞𝐫𝐬｜𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥 𝐓𝐫𝐚𝐢𝐥𝐞𝐫
+2025-08-05 17:45:28,477 - INFO - 视频质量: 1080p
+2025-08-05 17:45:28,477 - INFO - 字幕语言: ['ja']
+2025-08-05 17:46:48,968 - INFO - 下载完成!
+2025-08-05 17:46:48,969 - INFO - 视频文件: 劇場アニメ『ひゃくえむ。』本予告【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】｜𝟏𝟎𝟎 𝐌𝐞𝐭𝐞𝐫𝐬｜𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥 𝐓𝐫𝐚𝐢𝐥𝐞𝐫.mp4
+2025-08-05 17:46:48,970 - INFO - 视频大小: 27.9 MB
+2025-08-05 17:46:48,971 - INFO - SRT字幕文件 (1 个):
+2025-08-05 17:46:48,972 - INFO -   - 劇場アニメ『ひゃくえむ。』本予告【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】｜𝟏𝟎𝟎 𝐌𝐞𝐭𝐞𝐫𝐬｜𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥 𝐓𝐫𝐚𝐢𝐥𝐞𝐫.ja.srt
+2025-08-05 17:46:48,973 - INFO -     大小: 1.3 KB
+2025-08-05 21:36:55,645 - INFO - 启动Dify工作流后端API服务...
+2025-08-05 21:36:55,646 - INFO - 服务地址: http://localhost:5000
+2025-08-05 21:36:55,646 - INFO - 健康检查: http://localhost:5000/health
+2025-08-05 21:36:55,865 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.50.92:5000
+2025-08-05 21:36:55,865 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-05 21:37:52,961 - INFO - 启动Dify工作流后端API服务...
+2025-08-05 21:37:52,962 - INFO - 服务地址: http://localhost:5000
+2025-08-05 21:37:52,962 - INFO - 健康检查: http://localhost:5000/health
+2025-08-05 21:37:53,001 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.50.92:5000
+2025-08-05 21:37:53,002 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-05 21:43:02,128 - INFO - 启动Dify工作流后端API服务...
+2025-08-05 21:43:02,129 - INFO - 服务地址: http://localhost:5000
+2025-08-05 21:43:02,129 - INFO - 健康检查: http://localhost:5000/health
+2025-08-05 21:43:02,226 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.50.92:5000
+2025-08-05 21:43:02,227 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-05 21:55:43,799 - INFO - 启动Dify工作流后端API服务...
+2025-08-05 21:55:43,823 - INFO - 服务地址: http://localhost:5000
+2025-08-05 21:55:43,834 - INFO - 健康检查: http://localhost:5000/health
+2025-08-05 21:55:43,956 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.50.92:5000
+2025-08-05 21:55:43,960 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-05 22:22:09,349 - INFO - 启动Dify工作流后端API服务...
+2025-08-05 22:22:09,350 - INFO - 服务地址: http://localhost:5000
+2025-08-05 22:22:09,350 - INFO - 健康检查: http://localhost:5000/health
+2025-08-05 22:22:09,387 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.50.92:5000
+2025-08-05 22:22:09,387 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-05 22:58:19,118 - INFO - 启动Dify工作流后端API服务...
+2025-08-05 22:58:19,121 - INFO - 服务地址: http://localhost:5000
+2025-08-05 22:58:19,121 - INFO - 健康检查: http://localhost:5000/health
+2025-08-05 22:58:19,273 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.50.92:5000
+2025-08-05 22:58:19,274 - INFO - [33mPress CTRL+C to quit[0m
+2025-08-06 15:22:07,208 - INFO - 找到FFmpeg: ffmpeg
+2025-08-06 15:22:19,191 - INFO - 准备下载视频: Genie 3: The World Becomes Playable (DeepMind)
+2025-08-06 15:22:19,192 - INFO - 视频质量: 4k
+2025-08-06 15:22:19,192 - INFO - 字幕语言: ['en']
+2025-08-06 15:24:53,013 - INFO - 下载完成!
+2025-08-06 15:24:53,013 - WARNING - 未找到视频文件
+2025-08-06 15:24:53,014 - INFO - SRT字幕文件 (5 个):
+2025-08-06 15:24:53,014 - INFO -   - Genie 3： The World Becomes Playable (DeepMind).en.srt
+2025-08-06 15:24:53,015 - INFO -     大小: 20.2 KB
+2025-08-06 15:24:53,015 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.en.srt
+2025-08-06 15:24:53,016 - INFO -     大小: 101.2 KB
+2025-08-06 15:24:53,016 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.zh-Hans.srt
+2025-08-06 15:24:53,016 - INFO -     大小: 99.3 KB
+2025-08-06 15:24:53,017 - INFO -   - When the protagonist feels alien.en.srt
+2025-08-06 15:24:53,017 - INFO -     大小: 61.9 KB
+2025-08-06 15:24:53,018 - INFO -   - When the protagonist feels alien.en_translated_zh-cn.srt
+2025-08-06 15:24:53,019 - INFO -     大小: 64.6 KB
+2025-08-09 14:44:24,402 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 14:44:31,641 - INFO - 准备下载视频: 劇場アニメ『ひゃくえむ。』キャラクターPV【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】
+2025-08-09 14:44:31,641 - INFO - 视频质量: 4k
+2025-08-09 14:44:31,641 - INFO - 字幕语言: ['ja']
+2025-08-09 14:45:12,851 - INFO - 下载完成!
+2025-08-09 14:45:12,851 - INFO - 视频文件: 劇場アニメ『ひゃくえむ。』キャラクターPV【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】.mp4
+2025-08-09 14:45:12,852 - INFO - 视频大小: 23.2 MB
+2025-08-09 14:45:12,852 - INFO - SRT字幕文件 (1 个):
+2025-08-09 14:45:12,853 - INFO -   - 劇場アニメ『ひゃくえむ。』本予告【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】｜𝟏𝟎𝟎 𝐌𝐞𝐭𝐞𝐫𝐬｜𝐎𝐟𝐟𝐢𝐜𝐢𝐚𝐥 𝐓𝐫𝐚𝐢𝐥𝐞𝐫.ja.srt
+2025-08-09 14:45:12,854 - INFO -     大小: 2.1 KB
+2025-08-09 14:48:34,248 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 14:48:34,462 - ERROR - 下载失败: FFmpegEmbedSubtitlePP.__init__() got an unexpected keyword argument 'format'
+2025-08-09 14:49:03,267 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 14:49:03,412 - ERROR - 下载失败: FFmpegEmbedSubtitlePP.__init__() got an unexpected keyword argument 'format'
+2025-08-09 14:50:18,699 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 14:50:18,838 - ERROR - 下载失败: FFmpegEmbedSubtitlePP.__init__() got an unexpected keyword argument 'format'
+2025-08-09 14:53:05,930 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 14:53:16,854 - INFO - 准备下载视频: 劇場アニメ『ひゃくえむ。』キャラクターPV【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】
+2025-08-09 14:53:16,854 - INFO - 视频质量: 4k
+2025-08-09 14:53:16,854 - INFO - 字幕语言: ['ja']
+2025-08-09 14:53:37,338 - INFO - 下载完成!
+2025-08-09 14:53:37,338 - INFO - 视频文件: 劇場アニメ『ひゃくえむ。』キャラクターPV【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】.mp4
+2025-08-09 14:53:37,338 - INFO - 视频大小: 23.2 MB
+2025-08-09 14:53:37,338 - INFO - SRT字幕文件 (1 个):
+2025-08-09 14:53:37,338 - INFO -   - 劇場アニメ『ひゃくえむ。』キャラクターPV【𝟗.𝟏𝟗(𝐅𝐫𝐢)公開】.ja.srt
+2025-08-09 14:53:37,338 - INFO -     大小: 0.8 KB
+2025-08-09 15:12:35,730 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 15:12:35,947 - ERROR - 下载失败: FFmpegEmbedSubtitlePP.__init__() got an unexpected keyword argument 'format'
+2025-08-09 15:16:04,393 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 15:16:04,584 - ERROR - 下载失败: FFmpegEmbedSubtitlePP.__init__() got an unexpected keyword argument 'format'
+2025-08-09 15:16:30,417 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 15:16:30,545 - ERROR - 下载失败: FFmpegEmbedSubtitlePP.__init__() got an unexpected keyword argument 'format'
+2025-08-09 15:18:17,271 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 15:18:24,540 - INFO - 准备下载视频: GPT-5 is a freak
+2025-08-09 15:18:24,540 - INFO - 视频质量: 1080p
+2025-08-09 15:18:24,540 - INFO - 字幕语言: ['en']
+2025-08-09 15:24:18,429 - INFO - 下载完成!
+2025-08-09 15:24:18,430 - INFO - 视频文件: GPT-5 is a freak.mp4
+2025-08-09 15:24:18,430 - INFO - 视频大小: 258.3 MB
+2025-08-09 15:24:18,431 - INFO - SRT字幕文件 (6 个):
+2025-08-09 15:24:18,431 - INFO -   - Genie 3： The World Becomes Playable (DeepMind).en.srt
+2025-08-09 15:24:18,432 - INFO -     大小: 21.5 KB
+2025-08-09 15:24:18,433 - INFO -   - GPT-5 is a freak.en.srt
+2025-08-09 15:24:18,433 - INFO -     大小: 65.3 KB
+2025-08-09 15:24:18,434 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.en.srt
+2025-08-09 15:24:18,435 - INFO -     大小: 101.2 KB
+2025-08-09 15:24:18,435 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.zh-Hans.srt
+2025-08-09 15:24:18,437 - INFO -     大小: 99.3 KB
+2025-08-09 15:24:18,438 - INFO -   - When the protagonist feels alien.en.srt
+2025-08-09 15:24:18,438 - INFO -     大小: 61.9 KB
+2025-08-09 15:24:18,439 - INFO -   - When the protagonist feels alien.en_translated_zh-cn.srt
+2025-08-09 15:24:18,439 - INFO -     大小: 64.6 KB
+2025-08-09 15:46:03,112 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 15:46:11,602 - INFO - 准备下载视频: GPT-5 is a freak
+2025-08-09 15:46:11,602 - INFO - 视频质量: 1080p
+2025-08-09 15:46:11,603 - INFO - 字幕语言: ['en']
+2025-08-09 15:53:50,664 - INFO - 下载完成!
+2025-08-09 15:53:50,666 - INFO - 视频文件: GPT-5 is a freak.mp4
+2025-08-09 15:53:50,666 - INFO - 视频大小: 258.3 MB
+2025-08-09 15:53:50,666 - INFO - SRT字幕文件 (6 个):
+2025-08-09 15:53:50,677 - INFO -   - Genie 3： The World Becomes Playable (DeepMind).en.srt
+2025-08-09 15:53:50,679 - INFO -     大小: 22.6 KB
+2025-08-09 15:53:50,698 - INFO -   - GPT-5 is a freak.en.srt
+2025-08-09 15:53:50,698 - INFO -     大小: 68.9 KB
+2025-08-09 15:53:50,724 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.en.srt
+2025-08-09 15:53:50,724 - INFO -     大小: 106.8 KB
+2025-08-09 15:53:50,752 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.zh-Hans.srt
+2025-08-09 15:53:50,752 - INFO -     大小: 104.3 KB
+2025-08-09 15:53:50,767 - INFO -   - When the protagonist feels alien.en.srt
+2025-08-09 15:53:50,767 - INFO -     大小: 63.1 KB
+2025-08-09 15:53:50,784 - INFO -   - When the protagonist feels alien.en_translated_zh-cn.srt
+2025-08-09 15:53:50,784 - INFO -     大小: 63.1 KB
+2025-08-09 23:29:39,696 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 23:29:39,930 - ERROR - 下载失败: FFmpegEmbedSubtitlePP.__init__() got an unexpected keyword argument 'format'
+2025-08-09 23:35:07,101 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 23:35:07,101 - INFO - 开始下载SRT字幕，语言: ['en']
+2025-08-09 23:35:16,912 - INFO - 视频标题: GPT-5 is a freak
+2025-08-09 23:35:16,913 - INFO - 视频ID: IrWtw9ehB2g
+2025-08-09 23:35:26,536 - INFO - 成功下载 6 个SRT字幕文件:
+2025-08-09 23:35:26,559 - INFO -   - Genie 3： The World Becomes Playable (DeepMind).en.srt
+2025-08-09 23:35:26,559 - INFO -     大小: 22.6 KB
+2025-08-09 23:35:26,595 - INFO -   - GPT-5 is a freak.en.srt
+2025-08-09 23:35:26,596 - INFO -     大小: 68.9 KB
+2025-08-09 23:35:26,628 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.en.srt
+2025-08-09 23:35:26,628 - INFO -     大小: 106.8 KB
+2025-08-09 23:35:26,662 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.zh-Hans.srt
+2025-08-09 23:35:26,663 - INFO -     大小: 104.3 KB
+2025-08-09 23:35:26,680 - INFO -   - When the protagonist feels alien.en.srt
+2025-08-09 23:35:26,681 - INFO -     大小: 63.1 KB
+2025-08-09 23:35:26,702 - INFO -   - When the protagonist feels alien.en_translated_zh-cn.srt
+2025-08-09 23:35:26,704 - INFO -     大小: 63.1 KB
+2025-08-09 23:37:18,158 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 23:37:18,159 - INFO - 开始下载SRT字幕，语言: ['auto']
+2025-08-09 23:37:28,978 - INFO - 视频标题: GPT-5 is a freak
+2025-08-09 23:37:28,979 - INFO - 视频ID: IrWtw9ehB2g
+2025-08-09 23:37:40,298 - INFO - 成功下载 1 个SRT字幕文件:
+2025-08-09 23:37:40,330 - INFO -   - GPT-5 is a freak.en.srt
+2025-08-09 23:37:40,331 - INFO -     大小: 68.9 KB
+2025-08-09 23:39:48,398 - INFO - 找到FFmpeg: ffmpeg
+2025-08-09 23:39:48,400 - INFO - 开始下载SRT字幕，语言: ['en']
+2025-08-09 23:40:01,560 - INFO - 视频标题: GPT-5 is a freak
+2025-08-09 23:40:01,560 - INFO - 视频ID: IrWtw9ehB2g
+2025-08-09 23:40:10,476 - INFO - 成功下载 6 个SRT字幕文件:
+2025-08-09 23:40:10,526 - INFO -   - Genie 3： The World Becomes Playable (DeepMind).en.srt
+2025-08-09 23:40:10,531 - INFO -     大小: 22.6 KB
+2025-08-09 23:40:10,629 - INFO -   - GPT-5 is a freak.en.srt
+2025-08-09 23:40:10,629 - INFO -     大小: 68.9 KB
+2025-08-09 23:40:10,668 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.en.srt
+2025-08-09 23:40:10,668 - INFO -     大小: 106.8 KB
+2025-08-09 23:40:10,718 - INFO -   - Insane 3D model generator, emotional TTS, AI eraser, 3D upscaler, Qwen3  beats all, 4D videos.zh-Hans.srt
+2025-08-09 23:40:10,719 - INFO -     大小: 104.3 KB
+2025-08-09 23:40:10,751 - INFO -   - When the protagonist feels alien.en.srt
+2025-08-09 23:40:10,751 - INFO -     大小: 63.1 KB
+2025-08-09 23:40:10,779 - INFO -   - When the protagonist feels alien.en_translated_zh-cn.srt
+2025-08-09 23:40:10,780 - INFO -     大小: 63.1 KB
+2026-03-18 17:57:04,054 - ERROR - FFmpeg未找到: 未找到FFmpeg，请确保已正确安装
