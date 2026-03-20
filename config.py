@@ -23,10 +23,10 @@ DENO_PATH = r"C:\Users\zamateur\AppData\Local\Microsoft\WinGet\Packages\DenoLand
 # Cookies文件路径
 COOKIES_FILE = "cookies.txt"
 
-# 从浏览器自动获取cookies（推荐，无需手动导出）
+# 从浏览器自动获取cookies
 # 支持的浏览器: chrome, edge, firefox, opera, brave, vivaldi
 # 设为 None 或空字符串 则使用cookies.txt文件
-COOKIES_FROM_BROWSER = "chrome"  # 推荐：chrome, edge, firefox
+COOKIES_FROM_BROWSER = ""  # 留空使用cookies.txt，手动导出更稳定
 
 # ==================== 字幕样式配置 ====================
 # 硬字幕样式

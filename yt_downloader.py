@@ -35,20 +35,18 @@ def download_video(url: str, output_dir: str = './downloads', quality: str = 'be
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
-    # Cookies处理：优先使用浏览器cookies，备选使用文件cookies
+    # Cookies处理
     cookies_arg = []
     cookies_path = Path(COOKIES_FILE)
 
-    # 尝试从浏览器获取cookies
-    if COOKIES_FROM_BROWSER:
-        cookies_arg = ['--cookies-from-browser', COOKIES_FROM_BROWSER]
-        print(f"使用浏览器cookies: {COOKIES_FROM_BROWSER}")
-    # 否则使用cookies文件
-    elif cookies_path.exists():
+    if cookies_path.exists():
         cookies_arg = ['--cookies', str(cookies_path)]
         print(f"使用cookies文件: {COOKIES_FILE}")
     else:
-        print(f"警告: 未找到cookies，使用无cookie模式（可能失败）")
+        print(f"警告: 未找到 {COOKIES_FILE}")
+        print(f"请手动导出cookies.txt到当前目录")
+        print(f"推荐扩展: 'Get cookies.txt LOCALLY' 或 'Cookie-Editor'")
+        return None
 
     # 检查deno
     deno_arg = []
